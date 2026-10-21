@@ -2,7 +2,7 @@
 	import type { ProjectMeta } from '$lib/content/projects';
 	import Meta from '$lib/components/Meta.svelte';
 
-	let { data } = $props<{ data: { featured: ProjectMeta[] } }>();
+	let { data } = $props<{ data: { recent: ProjectMeta[] } }>();
 </script>
 
 <svelte:head>
@@ -59,52 +59,8 @@
 	</div>
 </section>
 
-<!-- About Section -->
-<section class="bg-white py-16">
-	<div class="mx-auto max-w-screen-xl px-4">
-		<div class="grid items-start gap-12 lg:grid-cols-2">
-			<div>
-				<h2 class="mb-6 text-2xl font-bold text-gray-900">Our mission</h2>
-				<p class="mb-6 leading-relaxed text-gray-700">
-					We act as a consolidated hub for community‑led initiatives and open source projects that
-					aim to improve public services, transparency, and digital infrastructure across the
-					Philippines.
-				</p>
-				<p class="mb-6 leading-relaxed text-gray-700">
-					Our mission is to make it easy to discover, support, and contribute to impactful
-					technology projects.
-				</p>
-				<a
-					href="/mission"
-					class="inline-flex items-center font-medium text-blue-600 transition-colors hover:text-blue-800 hover:underline"
-				>
-					Read our full mission →
-				</a>
-			</div>
-
-			<div>
-				<h2 class="mb-6 text-2xl font-bold text-gray-900">Our vision</h2>
-				<p class="mb-6 leading-relaxed text-gray-700">
-					A Philippines where open source technology is trusted, widely adopted, and sustainably
-					maintained by a collaborative community of contributors, public servants, and
-					organizations.
-				</p>
-				<p class="mb-6 leading-relaxed text-gray-700">
-					We envision a transparent, interoperable, and user-centered digital government ecosystem.
-				</p>
-				<a
-					href="/vision"
-					class="inline-flex items-center font-medium text-blue-600 transition-colors hover:text-blue-800 hover:underline"
-				>
-					Read our full vision →
-				</a>
-			</div>
-		</div>
-	</div>
-</section>
-
 <!-- Featured Projects -->
-{#if data.featured.length}
+{#if data.recent.length}
 	<section class="border-t border-gray-200 bg-gray-50 py-16">
 		<div class="mx-auto max-w-screen-xl px-4">
 			<div class="mb-12">
@@ -114,46 +70,46 @@
 				</p>
 			</div>
 
-			<div class="mb-12 space-y-8">
-				{#each data.featured.slice(0, 3) as p (p.slug)}
-					<div class="border border-gray-200 bg-white p-6">
-						<div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-							<div class="flex-1">
-								<h3 class="mb-2 text-xl font-semibold text-gray-900">
-									<a
-										href={`/projects/${p.slug}`}
-										class="text-gray-900 transition-colors hover:text-blue-600"
-									>
-										{p.title}
-									</a>
-								</h3>
-								{#if p.summary}
-									<p class="mb-4 leading-relaxed text-gray-600">{p.summary}</p>
-								{/if}
-								{#if p.tags?.length}
-									<div class="flex flex-wrap gap-2">
-										{#each p.tags.slice(0, 4) as tag (tag)}
-											<span class="inline-block bg-gray-100 px-3 py-1 text-sm text-gray-700"
-												>{tag}</span
-											>
-										{/each}
-									</div>
-								{/if}
-							</div>
-							<div class="lg:ml-6">
-								<a
-									href={`/projects/${p.slug}`}
-									class="inline-flex items-center bg-blue-600 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700"
+			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{#each data.recent as p (p.slug)}
+					<a
+						href={`/projects/${p.slug}`}
+						class="group flex flex-col border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:border-[--color-brand] hover:shadow-md focus:ring-2 focus:ring-[--color-brand] focus:outline-none active:scale-[0.98]"
+					>
+						<h3
+							class="mb-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-[--color-brand]"
+						>
+							{p.title}
+						</h3>
+						{#if p.summary}
+							<p class="mb-4 flex-1 text-sm leading-relaxed text-gray-600">
+								{p.summary.length > 120 ? p.summary.slice(0, 120) + '…' : p.summary}
+							</p>
+						{/if}
+						<div class="mt-auto flex items-center justify-between">
+							{#if p.status}
+								<span
+									class="inline-block rounded-full px-2 py-0.5 text-xs font-medium {p.status ===
+									'stable'
+										? 'bg-green-100 text-green-700'
+										: p.status === 'beta'
+											? 'bg-blue-100 text-blue-700'
+											: p.status === 'alpha'
+												? 'bg-yellow-100 text-yellow-700'
+												: 'bg-gray-100 text-gray-700'}"
 								>
-									View project
-								</a>
-							</div>
+									{p.status}
+								</span>
+							{/if}
+							{#if p.sectors?.length}
+								<span class="text-xs text-gray-400">{p.sectors[0]}</span>
+							{/if}
 						</div>
-					</div>
+					</a>
 				{/each}
 			</div>
 
-			<div>
+			<div class="mt-12">
 				<a
 					href="/directory"
 					class="inline-flex items-center border border-gray-300 px-6 py-3 font-medium text-gray-700 transition-colors hover:border-gray-400 hover:bg-gray-50"

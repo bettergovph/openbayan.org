@@ -1,17 +1,39 @@
 <script lang="ts">
+	import { page } from '$app/state';
+
 	let open = $state(false);
+	let purposeOpen = $state(false);
 	let contributingOpen = $state(false);
+	let purposeDropdown: HTMLElement;
 	let contributingDropdown: HTMLElement;
 
-	// Close dropdown when clicking outside
+	let pathname = $derived(page.url.pathname);
+
+	function isActive(href: string): boolean {
+		if (href === '/') return pathname === '/';
+		return pathname === href || pathname.startsWith(href + '/');
+	}
+
+	function isPurposeActive(): boolean {
+		return isActive('/mission') || isActive('/vision');
+	}
+
+	function isContributingActive(): boolean {
+		return isActive('/email');
+	}
+
+	// Close dropdowns when clicking outside
 	$effect(() => {
 		function handleClickOutside(event: MouseEvent) {
+			if (purposeDropdown && !purposeDropdown.contains(event.target as Node)) {
+				purposeOpen = false;
+			}
 			if (contributingDropdown && !contributingDropdown.contains(event.target as Node)) {
 				contributingOpen = false;
 			}
 		}
 
-		if (contributingOpen) {
+		if (purposeOpen || contributingOpen) {
 			document.addEventListener('click', handleClickOutside);
 			return () => document.removeEventListener('click', handleClickOutside);
 		}
@@ -40,12 +62,64 @@
 
 			<nav class="hidden sm:block">
 				<ul class="flex items-center gap-6 text-sm">
-					<li><a class="hover:underline" href="/directory">Directory</a></li>
-					<li><a class="hover:underline" href="/mission">Mission</a></li>
-					<li><a class="hover:underline" href="/vision">Vision</a></li>
+					<li>
+						<a
+							class="border-b-2 pb-0.5 transition-colors {isActive('/directory')
+								? 'border-[--color-brand] font-medium text-[--color-brand]'
+								: 'border-transparent hover:border-gray-300 hover:text-gray-900'}"
+							href="/directory"
+							aria-current={isActive('/directory') ? 'page' : undefined}
+						>
+							Directory
+						</a>
+					</li>
+					<li class="relative" bind:this={purposeDropdown}>
+						<button
+							class="flex items-center gap-1 border-b-2 pb-0.5 transition-colors {isPurposeActive()
+								? 'border-[--color-brand] font-medium text-[--color-brand]'
+								: 'border-transparent hover:border-gray-300 hover:text-gray-900'}"
+							onclick={() => (purposeOpen = !purposeOpen)}
+							aria-expanded={purposeOpen}
+						>
+							Purpose
+							<svg
+								class="h-4 w-4 transition-transform {purposeOpen ? 'rotate-180' : ''}"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M19 9l-7 7-7-7"
+								></path>
+							</svg>
+						</button>
+						{#if purposeOpen}
+							<div
+								class="absolute top-full left-0 z-50 mt-1 min-w-48 border border-gray-300 bg-white py-1 shadow-lg"
+							>
+								<a
+									href="/mission"
+									onclick={() => (purposeOpen = false)}
+									class="block border-b border-gray-100 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100"
+									>Mission</a
+								>
+								<a
+									href="/vision"
+									onclick={() => (purposeOpen = false)}
+									class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100"
+									>Vision</a
+								>
+							</div>
+						{/if}
+					</li>
 					<li class="relative" bind:this={contributingDropdown}>
 						<button
-							class="flex items-center gap-1 hover:underline"
+							class="flex items-center gap-1 border-b-2 pb-0.5 transition-colors {isContributingActive()
+								? 'border-[--color-brand] font-medium text-[--color-brand]'
+								: 'border-transparent hover:border-gray-300 hover:text-gray-900'}"
 							onclick={() => (contributingOpen = !contributingOpen)}
 							aria-expanded={contributingOpen}
 						>
@@ -121,23 +195,95 @@
 				onclick={() => (open = !open)}
 			>
 				<span class="sr-only">Menu</span>
-				☰
+				<svg
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					{#if open}
+						<path d="M18 6 6 18"></path>
+						<path d="m6 6 12 12"></path>
+					{:else}
+						<path d="M4 6h16"></path>
+						<path d="M4 12h16"></path>
+						<path d="M4 18h16"></path>
+					{/if}
+				</svg>
 			</button>
 		</div>
 	</div>
 
 	<nav class={open ? 'block sm:hidden' : 'hidden'}>
 		<ul class="space-y-2 px-4 pb-4 text-sm">
-			<li><a class="block py-1" href="/directory" onclick={() => (open = false)}>Directory</a></li>
-			<li><a class="block py-1" href="/mission" onclick={() => (open = false)}>Mission</a></li>
-			<li><a class="block py-1" href="/vision" onclick={() => (open = false)}>Vision</a></li>
+			<li>
+				<a
+					class="block py-1 {isActive('/directory')
+						? 'font-medium text-[--color-brand]'
+						: 'text-gray-900'}"
+					href="/directory"
+					onclick={() => (open = false)}
+					aria-current={isActive('/directory') ? 'page' : undefined}
+				>
+					Directory
+				</a>
+			</li>
 			<li>
 				<div class="py-1">
-					<div class="mb-2 font-medium text-gray-900">Contributing</div>
+					<div
+						class="mb-2 font-medium {isPurposeActive() ? 'text-[--color-brand]' : 'text-gray-900'}"
+					>
+						Purpose
+					</div>
 					<div class="space-y-1 pl-3">
-						<a class="block py-1 text-gray-600" href="/email" onclick={() => (open = false)}
-							>Email activation</a
+						<a
+							class="block py-1 {isActive('/mission')
+								? 'font-medium text-[--color-brand]'
+								: 'text-gray-600'}"
+							href="/mission"
+							onclick={() => (open = false)}
+							aria-current={isActive('/mission') ? 'page' : undefined}
 						>
+							Mission
+						</a>
+						<a
+							class="block py-1 {isActive('/vision')
+								? 'font-medium text-[--color-brand]'
+								: 'text-gray-600'}"
+							href="/vision"
+							onclick={() => (open = false)}
+							aria-current={isActive('/vision') ? 'page' : undefined}
+						>
+							Vision
+						</a>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="py-1">
+					<div
+						class="mb-2 font-medium {isContributingActive()
+							? 'text-[--color-brand]'
+							: 'text-gray-900'}"
+					>
+						Contributing
+					</div>
+					<div class="space-y-1 pl-3">
+						<a
+							class="block py-1 {isActive('/email')
+								? 'font-medium text-[--color-brand]'
+								: 'text-gray-600'}"
+							href="/email"
+							onclick={() => (open = false)}
+							aria-current={isActive('/email') ? 'page' : undefined}
+						>
+							Email activation
+						</a>
 						<a
 							class="block py-1 text-gray-600"
 							href="https://github.com/openbayan/openbayan.org/issues"

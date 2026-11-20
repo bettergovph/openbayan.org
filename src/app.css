@@ -95,6 +95,21 @@
 	padding: var(--space-9) var(--gutter);
 }
 
+/* On a phone the band is shorter and the sunburst would sit under the text, so it is left out. */
+@media (max-width: 40rem) {
+	.hero {
+		background-image: none;
+	}
+
+	.hero-inner {
+		padding-block: var(--space-6);
+	}
+
+	.page {
+		padding-top: var(--space-6);
+	}
+}
+
 .hero-inner > * + * {
 	margin-top: var(--space-4);
 }

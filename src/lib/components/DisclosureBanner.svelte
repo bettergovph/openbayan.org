@@ -5,8 +5,14 @@
 <aside aria-label="Community notice" class="notice">
 	<p>
 		<span class="label chip">Volunteer-run</span>
-		<span>OpenBayan is run by volunteers of BetterGov.ph. It is not a government website.</span>
-		<a href={officialSitesUrl} rel="noopener">Go to the official government portal</a>
+		<span class="long"
+			>OpenBayan is run by volunteers of BetterGov.ph. It is not a government website.</span
+		>
+		<span class="short">Not a government website.</span>
+		<a href={officialSitesUrl} rel="noopener">
+			<span class="long">Go to the official government portal</span>
+			<span class="short">Official portal</span>
+		</a>
 	</p>
 </aside>
 
@@ -39,6 +45,26 @@
 		padding: 0 var(--space-2);
 		background: var(--navy-ink);
 		font-weight: 500;
+	}
+
+	.short {
+		display: none;
+	}
+
+	/* One line on a phone instead of three. */
+	@media (max-width: 40rem) {
+		.chip,
+		.long {
+			display: none;
+		}
+
+		.short {
+			display: inline;
+		}
+
+		p {
+			font-size: var(--text-small);
+		}
 	}
 
 	a:focus-visible {

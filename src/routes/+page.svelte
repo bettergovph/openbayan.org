@@ -8,32 +8,54 @@
 
 	let { data } = $props();
 
+	/** Cards shown before "Show more" is pressed, and added by each press. */
+	const PAGE_SIZE = 24;
+
+	let query = $state('');
 	let sector = $state('');
 	let need = $state('');
+	let limit = $state(PAGE_SIZE);
 
-	const results = $derived(
-		data.projects.filter(
-			(project) =>
-				(!sector || project.sectors[0] === sector) &&
-				(!need || project.needs?.some((asked) => asked === need))
-		)
-	);
+	/** Every word typed must appear somewhere in the project's name, summary, owner, sector or tags. */
+	const results = $derived.by(() => {
+		const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+		return data.projects.filter((project) => {
+			if (sector && project.sectors[0] !== sector) return false;
+			if (need && !project.needs?.some((asked) => asked === need)) return false;
+			if (words.length === 0) return true;
+			const text = [
+				project.title,
+				project.summary,
+				project.owner,
+				...project.sectors,
+				...project.tags
+			]
+				.join(' ')
+				.toLowerCase();
+			return words.every((word) => text.includes(word));
+		});
+	});
+	const shown = $derived(results.slice(0, limit));
 
 	/** The page is prerendered, so the address is read after it loads, not during the build. */
 	function readAddress() {
 		const params = new URLSearchParams(location.search);
+		query = params.get('q') ?? '';
 		sector = params.get('sector') ?? '';
 		need = params.get('needs') ?? '';
 	}
 
 	/** Keeps the filters in the address so a filtered list can be shared as a link. */
 	function writeAddress() {
-		const active = Object.entries({ sector, needs: need }).filter(([, value]) => value !== '');
+		limit = PAGE_SIZE;
+		const filters = { q: query.trim(), sector, needs: need };
+		const active = Object.entries(filters).filter(([, value]) => value !== '');
 		const search = new URLSearchParams(active).toString();
 		replaceState(search ? `?${search}` : location.pathname, {});
 	}
 
 	function clearFilters() {
+		query = '';
 		sector = '';
 		need = '';
 		writeAddress();
@@ -62,13 +84,27 @@
 				The newest was added on {formatDate(data.projects[0].dateAdded)}.
 			{/if}
 		</p>
+		<form class="search" role="search" onsubmit={(event) => event.preventDefault()}>
+			<label for="search">Search projects</label>
+			<input
+				id="search"
+				type="search"
+				name="q"
+				autocomplete="off"
+				placeholder="flood, tax, Cebu"
+				bind:value={query}
+				oninput={writeAddress}
+			/>
+		</form>
 	</div>
 </div>
 
 <div class="page">
 	<div class="head">
 		<h2>Projects</h2>
-		<p class="small muted" aria-live="polite">{plural(results.length, 'project')} shown</p>
+		<p class="small muted" aria-live="polite">
+			Showing {shown.length} of {plural(results.length, 'project')}
+		</p>
 	</div>
 
 	<p class="filter">
@@ -99,9 +135,17 @@
 		</p>
 	{/if}
 
-	<ProjectList projects={results}>
+	<ProjectList projects={shown}>
 		<h3><a class="add" href="/submit">Add your project</a></h3>
 	</ProjectList>
+
+	{#if shown.length < results.length}
+		<p>
+			<button type="button" class="button more" onclick={() => (limit += PAGE_SIZE)}>
+				Show more projects
+			</button>
+		</p>
+	{/if}
 
 	{#if data.updates.length > 0}
 		<h2>Updates</h2>
@@ -149,6 +193,36 @@
 	}
 
 	.add {
+		color: var(--pen);
+	}
+
+	.search {
+		display: grid;
+		max-width: 37rem;
+		margin-top: var(--space-5);
+		gap: var(--space-2);
+	}
+
+	.search label {
+		font-weight: 600;
+	}
+
+	.search :global(input) {
+		min-height: 2.875rem;
+		padding: 0 var(--space-4);
+		border: 1px solid var(--rule);
+		background: var(--paper);
+		color: var(--ink);
+		font: inherit;
+	}
+
+	.search :global(input:focus-visible) {
+		outline-color: #ffffff;
+	}
+
+	.more {
+		border-color: var(--rule-strong);
+		background: var(--paper);
 		color: var(--pen);
 	}
 </style>

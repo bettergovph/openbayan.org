@@ -2,7 +2,12 @@ import type { PageLoad } from './$types';
 import { getAllProjects, getAllUpdates } from '$lib/content/projects';
 
 export const load: PageLoad = () => {
-	const projects = getAllProjects().toSorted((a, b) => b.dateAdded.localeCompare(a.dateAdded));
+	// Newest first. The BetterLGU portals are most of the list and were added in one batch, so they
+	// go after everything else and do not bury the other projects.
+	const isLgu = (project: { sectors: string[] }) => project.sectors[0] === 'Local Government';
+	const projects = getAllProjects().toSorted(
+		(a, b) => Number(isLgu(a)) - Number(isLgu(b)) || b.dateAdded.localeCompare(a.dateAdded)
+	);
 
 	return {
 		projects,

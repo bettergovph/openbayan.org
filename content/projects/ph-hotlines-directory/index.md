@@ -3,6 +3,7 @@ title: PH Hotlines Directory
 summary: Directory of localized emergency hotlines across Philippine cities, seeded with Cavite data and open for contributions.
 status: alpha
 repoUrl: https://github.com/bettergovph/hotines
+needs: ['developers', 'designers', 'researchers']
 website: https://hotlines.bettergov.ph
 license: Unknown
 maintainers: ['Waffen']

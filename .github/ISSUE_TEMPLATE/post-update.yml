@@ -1,0 +1,26 @@
+name: Post an update
+description: Share progress on a project that is already in the OpenBayan directory.
+title: 'Post an update: '
+body:
+  - type: input
+    id: project
+    attributes:
+      label: Project
+      description: The address of the project page on OpenBayan, or the last part of it.
+      placeholder: https://openbayan.org/projects/psgc-api
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: Update title
+      description: Up to 100 characters.
+    validations:
+      required: true
+  - type: textarea
+    id: body
+    attributes:
+      label: What changed
+      description: Up to 1,200 characters of plain text. What shipped, what you learned, or where you need help.
+    validations:
+      required: true

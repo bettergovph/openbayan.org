@@ -1,48 +1,330 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
 
-/* Design tokens (Tailwind v4 @theme) */
-@theme {
-	--font-sans:
-		'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial,
-		'Apple Color Emoji', 'Segoe UI Emoji';
-
-	--radius-sm: 4px;
-	--radius-md: 8px;
-
-	/* Base foreground/background */
-	--color-bg: oklch(99% 0 0);
-	--color-fg: oklch(21% 0 0);
-
-	/* Philippine flag palette */
-	--flag-blue: #0038a8; /* Blue */
-	--flag-red: #ce1126; /* Red */
-	--flag-yellow: #fcd116; /* Yellow */
-
-	/* Brand & accents (accessible on white) */
-	--color-brand: var(--flag-blue);
-	--color-brand-foreground: oklch(98% 0 0);
-
-	/* Informational surfaces (for banners/notices) */
-	--color-info-bg: #c2c2c2;
-	--color-info-border: #c2c2c2;
-}
-
+/*
+ * The same design as bettergov.ph: Figtree headings, Inter text, JetBrains
+ * Mono labels, square corners, a blue band under the header for each page
+ * title, white cards with a hairline border and a navy footer.
+ */
 :root {
 	color-scheme: light;
+
+	--paper: #ffffff;
+	--paper-2: #f4f7fc;
+	--field: #ffffff;
+	--ink: #0c1b33;
+	--muted: #2b3a55;
+	--rule: #dbe3ef;
+	--rule-strong: #9fb2cc;
+	--pen: #0b4fd9;
+	--service: #0a44bd;
+	--navy-ink: #08286e;
+	--navy-tint: #e8efff;
+	--on-navy: #c9dcff;
+
+	--font: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--font-display: 'Figtree Variable', ui-sans-serif, sans-serif;
+	--font-mono: 'JetBrains Mono Variable', 'SF Mono', Menlo, monospace;
+	--text-label: 0.6875rem;
+	--text-small: 0.8125rem;
+	--text-body: 1rem;
+	--text-lead: 1.125rem;
+	--text-card: 1.25rem;
+	--text-heading: 1.5rem;
+	--text-poster: clamp(1.75rem, 4.4vw, 3.5rem);
+
+	--page: 94rem;
+	--measure: 40rem;
+	--gutter: clamp(1rem, 2.5vw, 2rem);
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-5: 1.5rem;
+	--space-6: 2rem;
+	--space-8: 3rem;
+	--space-9: 4rem;
+
+	--radius: 0;
+	--control: 2.75rem;
 }
 
-html {
-	@apply antialiased;
+@layer base {
+	body {
+		background: var(--paper);
+		color: var(--ink);
+		font: 400 var(--text-body) / 1.5 var(--font);
+		font-variant-numeric: tabular-nums;
+		text-wrap: pretty;
+		-webkit-text-size-adjust: 100%;
+	}
+
+	:focus-visible {
+		outline: 3px solid var(--pen);
+		outline-offset: 2px;
+	}
+
+	h2 {
+		font-family: var(--font-display);
+		font-size: var(--text-heading);
+		font-weight: 600;
+		line-height: 1.25;
+		letter-spacing: -0.01em;
+	}
+
+	h3 {
+		font-family: var(--font-display);
+		font-size: var(--text-lead);
+		font-weight: 600;
+	}
+
+	strong {
+		font-weight: 600;
+	}
 }
 
-body {
-	@apply bg-white text-gray-900;
-	font-family: var(--font-sans);
+/* The blue band under the header that holds a page's title. */
+.hero {
+	/* The sunburst is the one bettergov.ph draws behind its own sections. */
+	background: var(--service) url('/bettergov/sunburst.svg') no-repeat right -7rem center / 30rem;
+	color: #ffffff;
 }
 
-/* Markdown prose defaults */
+.hero-inner {
+	max-width: var(--page);
+	margin-inline: auto;
+	padding: var(--space-9) var(--gutter);
+}
+
+.hero-inner > * + * {
+	margin-top: var(--space-4);
+}
+
+.hero .lead,
+.hero .muted {
+	color: var(--on-navy);
+}
+
+.hero .link {
+	color: #ffffff;
+}
+
+.hero :focus-visible {
+	outline-color: #ffffff;
+}
+
+.hero .button {
+	border-color: #ffffff;
+	background: #ffffff;
+	color: var(--navy-ink);
+}
+
+/* Blocks in a page never touch: every block is spaced from the one before it. */
+.page {
+	max-width: var(--page);
+	margin-inline: auto;
+	padding: var(--space-8) var(--gutter) 0;
+}
+
+.page > * + * {
+	margin-top: var(--space-5);
+}
+
+.page > h2 {
+	margin-top: var(--space-8);
+}
+
+.poster {
+	font-family: var(--font-display);
+	font-size: var(--text-poster);
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: -0.02em;
+	text-wrap: balance;
+	overflow-wrap: anywhere;
+}
+
+.lead {
+	max-width: var(--measure);
+	font-size: var(--text-lead);
+	line-height: 1.55;
+}
+
+.muted {
+	color: var(--muted);
+}
+
+.small {
+	font-size: var(--text-small);
+}
+
+/* The small uppercase label bettergov.ph sets in mono. */
+.label {
+	font: 500 var(--text-label) / 1.5 var(--font-mono);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+
+.link,
+.prose a {
+	color: var(--pen);
+	text-decoration: underline;
+	text-underline-offset: 0.18em;
+}
+
 .prose {
-	@apply max-w-none;
+	max-width: var(--measure);
+}
+
+.prose > * + * {
+	margin-top: var(--space-4);
+}
+
+.prose > h2 {
+	margin-top: var(--space-8);
+}
+
+.prose > h3 {
+	margin-top: var(--space-5);
+}
+
+.prose > h3 + * {
+	margin-top: var(--space-1);
+}
+
+.prose ul,
+.prose ol {
+	padding-left: 1.25em;
+}
+
+.prose ul {
+	list-style: disc;
+}
+
+.prose ol {
+	list-style: decimal;
+}
+
+.prose li + li {
+	margin-top: var(--space-2);
+}
+
+.actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-3) var(--space-5);
+}
+
+.button {
+	display: inline-flex;
+	min-height: var(--control);
+	padding: 0 1.25rem;
+	align-items: center;
+	border: 1px solid var(--pen);
+	background: var(--pen);
+	color: #ffffff;
+	font-size: 0.875rem;
+	font-weight: 500;
+	cursor: pointer;
+	touch-action: manipulation;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.button:hover {
+		border-color: var(--service);
+		background: var(--service);
+	}
+
+	.hero .button:hover {
+		border-color: var(--navy-tint);
+		background: var(--navy-tint);
+	}
+}
+
+.facts {
+	max-width: var(--measure);
+	border-top: 1px solid var(--ink);
+}
+
+.facts > div {
+	display: grid;
+	padding: var(--space-3) 0;
+	gap: 0 var(--space-4);
+	border-bottom: 1px solid var(--rule);
+	grid-template-columns: 9rem 1fr;
+}
+
+.facts dt {
+	color: var(--muted);
+}
+
+.facts dd {
+	overflow-wrap: anywhere;
+}
+
+.form {
+	display: grid;
+	max-width: var(--measure);
+	gap: var(--space-5);
+}
+
+.field {
+	display: grid;
+	gap: var(--space-1);
+}
+
+.field label {
+	font-weight: 600;
+}
+
+.field small {
+	color: var(--muted);
+	font-size: var(--text-small);
+}
+
+.field input,
+.field select,
+.field textarea {
+	width: 100%;
+	min-height: var(--control);
+	padding: var(--space-2) var(--space-3);
+	border: 1px solid var(--rule-strong);
+	background: var(--field);
+	color: var(--ink);
+	font: inherit;
+}
+
+.field textarea {
+	min-height: 9rem;
+	resize: vertical;
+}
+
+.field ::placeholder {
+	color: var(--muted);
+	opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0s !important;
+		animation-duration: 0s !important;
+		scroll-behavior: auto !important;
+	}
+
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation: none !important;
+	}
+}
+
+::view-transition-group(*) {
+	animation-duration: 200ms;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 160ms;
 }

@@ -3,6 +3,7 @@ title: BetterGov.ph
 summary: A community‐led initiative to build a more usable Philippine national government website; open, volunteer-driven, aiming to improve how citizens access government services and information.
 status: beta
 repoUrl: https://github.com/bettergovph/bettergov
+needs: ['developers', 'designers', 'researchers']
 website: https://bettergov.ph
 license: CC0-1.0 (public domain dedication)
 maintainers: ['volunteers@bettergov.ph']

@@ -2,9 +2,9 @@ name: GitHub Actions Security Analysis with zizmor 🌈
 
 on:
   push:
-    branches: [main, develop]
+    branches: [master]
   pull_request:
-    branches: [main, develop]
+    branches: [master]
     types: [opened, synchronize]
 
 permissions: {}

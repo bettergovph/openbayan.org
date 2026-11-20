@@ -1,8 +1,7 @@
+import { redirect } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
-import { getAllProjects } from '$lib/content/projects';
 
-export const load: PageLoad = async () => {
-	return {
-		projects: getAllProjects()
-	};
+// The home page is the directory. Old links to /directory still land on it.
+export const load: PageLoad = () => {
+	redirect(308, '/');
 };

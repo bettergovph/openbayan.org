@@ -1,6 +1,6 @@
 ---
 title: PSGC API
-summary:  Philippine Standard Geographic Code (PSGC) API written in Rust
+summary: Philippine Standard Geographic Code (PSGC) API written in Rust
 status: beta
 repoUrl: https://github.com/mystique09/psgc-rs
 website: https://api-psgc-production.up.railway.app

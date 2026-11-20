@@ -1,71 +1,113 @@
 <script lang="ts">
-	import { officialSitesUrl, githubOrgUrl, githubIssuesUrl } from '$lib/config/site';
+	import { officialSitesUrl, githubRepoUrl, githubIssuesUrl } from '$lib/config/site';
 </script>
 
-<footer class="w-full bg-gray-800">
-	<div class="mx-auto max-w-screen-xl px-4 py-10 text-sm text-gray-300">
-		<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-			<section class="lg:col-span-2">
-				<div class="mb-4 flex items-center gap-2">
-					<svg aria-hidden="true" width="32" height="32" viewBox="0 0 640 640" focusable="false">
-						<defs>
-							<linearGradient id="footer-tricolor" x1="0%" y1="0%" x2="100%" y2="100%">
-								<stop offset="0%" style="stop-color:var(--flag-blue)" />
-								<stop offset="50%" style="stop-color:var(--flag-yellow)" />
-								<stop offset="100%" style="stop-color:var(--flag-red)" />
-							</linearGradient>
-						</defs>
-						<path
-							fill="url(#footer-tricolor)"
-							d="M286.7 96.1C291.7 113 282.1 130.9 265.2 135.9C185.9 159.5 128.1 233 128.1 320C128.1 426 214.1 512 320.1 512C426.1 512 512.1 426 512.1 320C512.1 233.1 454.3 159.6 375 135.9C358.1 130.9 348.4 113 353.5 96.1C358.6 79.2 376.4 69.5 393.3 74.6C498.9 106.1 576 204 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320C64 204 141.1 106.1 246.9 74.6C263.8 69.6 281.7 79.2 286.7 96.1z"
-						/>
-					</svg>
-					<span class="text-lg font-semibold text-white">OpenBayan</span>
-				</div>
-				<p class="mb-3">Community-led hub for open source tech in the Philippines.</p>
-				<p>
-					<a class="underline hover:text-white" href={officialSitesUrl}
-						>List of official government websites</a
-					>
-				</p>
-			</section>
-
-			<nav aria-label="Navigation">
-				<h2 class="mb-3 font-semibold text-white">Navigation</h2>
-				<ul class="space-y-2">
-					<li><a class="hover:text-white hover:underline" href="/directory">Directory</a></li>
-					<li><a class="hover:text-white hover:underline" href="/submit">Submit Project</a></li>
-					<li><a class="hover:text-white hover:underline" href="/search">Search</a></li>
-				</ul>
-			</nav>
-
-			<section>
-				<h2 class="mb-3 font-semibold text-white">Community</h2>
-				<ul class="space-y-2">
-					<li>
-						<a class="hover:text-white hover:underline" href={githubOrgUrl} rel="noopener">GitHub</a
-						>
-					</li>
-					<li>
-						<a class="hover:text-white hover:underline" href={githubIssuesUrl} rel="noopener"
-							>Report Issues</a
-						>
-					</li>
-					<li><a class="hover:text-white hover:underline" href="/email">Get Activated</a></li>
-				</ul>
-			</section>
-		</div>
-
-		<div
-			class="mt-10 flex flex-col items-start justify-between gap-3 border-t border-gray-600 pt-4 sm:flex-row sm:items-center"
-		>
-			<p class="text-gray-400">Content licensed MIT/CC-BY where applicable.</p>
-			<p class="text-gray-400">
-				&copy; {new Date().getFullYear()} OpenBayan · by
-				<a class="underline hover:text-white" href="https://bettergov.ph" rel="noopener"
-					>BetterGov.ph</a
-				>
+<footer class="footer">
+	<div class="inner">
+		<div class="about">
+			<a href="https://bettergov.ph" rel="noopener">
+				<img src="/bettergov/bettergov-inverse.png" alt="BetterGov.ph" width="160" height="40" />
+			</a>
+			<p>
+				OpenBayan is a public list of open source projects for the Philippines. It has no ads and no
+				tracking.
+			</p>
+			<p>Run by volunteers of BetterGov.ph.</p>
+			<p class="chips">
+				<span class="label">Volunteer-run</span>
+				<span class="label">Open source</span>
 			</p>
 		</div>
+		<nav aria-label="OpenBayan">
+			<h2 class="label">OpenBayan</h2>
+			<a href="/">Projects</a>
+			<a href="/submit">Add a project</a>
+			<a href="/mission">About</a>
+			<a href="/email">Email activation</a>
+		</nav>
+		<nav aria-label="BetterGov">
+			<h2 class="label">BetterGov</h2>
+			<a href="https://bettergov.ph" rel="noopener">BetterGov.ph</a>
+			<a href="https://about.bettergov.ph" rel="noopener">About BetterGov</a>
+			<a href={officialSitesUrl} rel="noopener">Official government portal</a>
+		</nav>
+		<nav aria-label="Source">
+			<h2 class="label">Source</h2>
+			<a href={githubRepoUrl} rel="noopener">GitHub</a>
+			<a href={githubIssuesUrl} rel="noopener">Report a problem</a>
+		</nav>
 	</div>
 </footer>
+
+<style>
+	.footer {
+		margin-top: var(--space-9);
+		padding: 3.75rem 0 var(--space-8);
+		background: var(--navy-ink);
+		color: var(--on-navy);
+		font-size: var(--text-small);
+	}
+
+	.inner {
+		display: grid;
+		max-width: var(--page);
+		margin-inline: auto;
+		padding-inline: var(--gutter);
+		gap: var(--space-6);
+		grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+	}
+
+	.about {
+		display: grid;
+		max-width: 22rem;
+		align-content: start;
+		gap: var(--space-3);
+	}
+
+	.chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2);
+	}
+
+	.chips span {
+		padding: 3px 8px;
+		border: 1px solid #5f7fc4;
+		font-size: 0.625rem;
+		font-weight: 400;
+	}
+
+	nav {
+		display: grid;
+		align-content: start;
+		justify-items: start;
+	}
+
+	h2 {
+		margin-bottom: var(--space-2);
+		color: #ffffff;
+	}
+
+	nav a {
+		display: flex;
+		min-height: 2rem;
+		align-items: center;
+	}
+
+	a:focus-visible {
+		outline-color: #ffffff;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		nav a:hover {
+			color: #ffffff;
+			text-decoration: underline;
+		}
+	}
+
+	@media (pointer: coarse) {
+		nav a {
+			min-height: var(--control);
+		}
+	}
+</style>

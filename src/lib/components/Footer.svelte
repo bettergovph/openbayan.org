@@ -5,6 +5,9 @@
 <footer class="footer">
 	<div class="inner">
 		<div class="about">
+			<a href="https://bettergov.ph" rel="noopener">
+				<img src="/bettergov/bettergov-inverse.png" alt="BetterGov.ph" width="160" height="40" />
+			</a>
 			<p>
 				OpenBayan is a public list of open source projects for the Philippines. It has no ads and no
 				tracking.

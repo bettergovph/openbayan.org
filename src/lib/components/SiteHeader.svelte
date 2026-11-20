@@ -11,7 +11,10 @@
 
 <header class="header">
 	<div class="top">
-		<a href="/" class="brand">OpenBayan</a>
+		<a href="/" class="brand">
+			<img src="/bettergov/emblem-inverse.svg" alt="" width="44" height="44" />
+			OpenBayan
+		</a>
 		<p class="label tagline">Open source projects<br />for the Philippines</p>
 		<a class="button label" href="/submit">Add a project</a>
 	</div>
@@ -46,6 +49,9 @@
 	}
 
 	.brand {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
 		color: var(--pen);
 		font: 800 1.75rem / 1 var(--font-display);
 		letter-spacing: -0.02em;

@@ -28,6 +28,11 @@
 
 		<h2>Who runs it</h2>
 		<p>
+			<a href="https://bettergov.ph" rel="noopener">
+				<img src="/bettergov/bettergov-primary.png" alt="BetterGov.ph" width="200" height="50" />
+			</a>
+		</p>
+		<p>
 			Volunteers from <a href="https://bettergov.ph" rel="noopener">BetterGov.ph</a> run the site. It
 			is not part of any government agency.
 		</p>

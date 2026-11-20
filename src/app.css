@@ -84,7 +84,8 @@
 
 /* The blue band under the header that holds a page's title. */
 .hero {
-	background: var(--service);
+	/* The sunburst is the one bettergov.ph draws behind its own sections. */
+	background: var(--service) url('/bettergov/sunburst.svg') no-repeat right -7rem center / 30rem;
 	color: #ffffff;
 }
 

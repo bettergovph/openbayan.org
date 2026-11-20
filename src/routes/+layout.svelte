@@ -4,7 +4,6 @@
 	import '@fontsource-variable/jetbrains-mono';
 	import '../app.css';
 	import { onNavigate } from '$app/navigation';
-	import favicon from '$lib/assets/favicon.ico';
 	import DisclosureBanner from '$lib/components/DisclosureBanner.svelte';
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import Footer from '$lib/components/Footer.svelte';
@@ -24,8 +23,8 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
-	<link rel="apple-touch-icon" href={favicon} />
+	<link rel="icon" type="image/png" href="/bettergov/icon-48.png" />
+	<link rel="apple-touch-icon" href="/bettergov/icon-180.png" />
 </svelte:head>
 
 <a href="#content" class="skip">Skip to content</a>

@@ -2,13 +2,27 @@
 	import { officialSitesUrl } from '$lib/config/site';
 </script>
 
-<div role="region" aria-label="Community notice" class="w-full bg-gray-100 text-xs">
-	<div class="mx-auto max-w-screen-xl px-4 py-2 text-gray-800">
-		<p>
-			This is a community-led initiative. Not an official government website.
-			<a href={officialSitesUrl} class="font-medium underline hover:no-underline"
-				>List of official government websites</a
-			>.
-		</p>
-	</div>
-</div>
+<aside aria-label="Community notice" class="notice">
+	<p>
+		Run by volunteers. Not a government website.
+		<a class="link" href={officialSitesUrl} rel="noopener">Go to the official government portal</a>
+	</p>
+</aside>
+
+<style>
+	.notice {
+		background: var(--ink);
+		color: var(--paper);
+		font-size: var(--text-small);
+	}
+
+	p {
+		max-width: var(--page);
+		margin-inline: auto;
+		padding: var(--space-2) var(--gutter);
+	}
+
+	a {
+		color: inherit;
+	}
+</style>

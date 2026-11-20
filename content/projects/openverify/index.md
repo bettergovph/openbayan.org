@@ -3,6 +3,7 @@ title: OpenVerify
 summary: Unofficial API wrapper that verifies PhilSys and eGov QR codes to make identity validation easier for civic-tech projects.
 status: alpha
 repoUrl: https://github.com/bettergovph/openverify
+needs: ['developers', 'designers', 'researchers']
 website: ''
 license: Unknown
 maintainers: ['ryanamay']

@@ -1,40 +1,11 @@
 <script lang="ts">
 	import { generateMeta, siteConfig, type PageMeta } from '$lib/config/meta';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
-	interface Props extends PageMeta {
-		title?: string;
-		description?: string;
-		keywords?: string[];
-		ogImage?: string;
-		ogType?: 'website' | 'article';
-		canonical?: string;
-		noindex?: boolean;
-	}
+	let pageMeta: PageMeta = $props();
 
-	let {
-		title,
-		description,
-		keywords,
-		ogImage,
-		ogType = 'website',
-		canonical,
-		noindex = false
-	}: Props = $props();
-
-	const meta = $derived(
-		generateMeta({
-			title,
-			description,
-			keywords,
-			ogImage,
-			ogType,
-			canonical,
-			noindex
-		})
-	);
-
-	const canonicalUrl = $derived(canonical || `${siteConfig.url}${$page.url.pathname}`);
+	const meta = $derived(generateMeta(pageMeta));
+	const canonicalUrl = $derived(pageMeta.canonical || `${siteConfig.url}${page.url.pathname}`);
 </script>
 
 <svelte:head>
@@ -73,8 +44,8 @@
 	{/if}
 
 	<!-- Additional Meta -->
-	<meta name="theme-color" content="#0038A8" />
-	<meta name="msapplication-TileColor" content="#0038A8" />
+	<meta name="theme-color" content="#0a0a0a" />
+	<meta name="msapplication-TileColor" content="#0a0a0a" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 	<meta name="apple-mobile-web-app-title" content={siteConfig.name} />

@@ -9,7 +9,7 @@ description: |
   Every output is an unofficial concept for demonstration and discussion. It is marked as such on every page and in its metadata, and it is not operated by, endorsed by, or affiliated with any agency. RE:GOV is a solo entry to the Meta Global AI Developer Hackathon 2026 (Indie track).
 
 # Project URLs
-repository: 'https://github.com/rockyru/regov'
+repoUrl: 'https://github.com/rockyru/regov'
 website: 'https://regov.app'
 demo: 'https://regov.app/showcase'
 

@@ -1,48 +1,298 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
 
-/* Design tokens (Tailwind v4 @theme) */
-@theme {
-	--font-sans:
-		'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial,
-		'Apple Color Emoji', 'Segoe UI Emoji';
-
-	--radius-sm: 4px;
-	--radius-md: 8px;
-
-	/* Base foreground/background */
-	--color-bg: oklch(99% 0 0);
-	--color-fg: oklch(21% 0 0);
-
-	/* Philippine flag palette */
-	--flag-blue: #0038a8; /* Blue */
-	--flag-red: #ce1126; /* Red */
-	--flag-yellow: #fcd116; /* Yellow */
-
-	/* Brand & accents (accessible on white) */
-	--color-brand: var(--flag-blue);
-	--color-brand-foreground: oklch(98% 0 0);
-
-	/* Informational surfaces (for banners/notices) */
-	--color-info-bg: #c2c2c2;
-	--color-info-border: #c2c2c2;
-}
-
+/*
+ * The site is one sheet of manila paper, the paper public notices and class
+ * reports are written on in the Philippines. What the page is gets lettered on it
+ * at poster size, projects are slips of lighter paper, links are ballpen blue
+ * and a volunteer's projects carry a red ink stamp. With a dark system theme
+ * the sheet becomes a chalkboard.
+ */
 :root {
-	color-scheme: light;
+	color-scheme: light dark;
+
+	--paper: light-dark(oklch(0.885 0.072 90), oklch(0.25 0.03 165));
+	--field: light-dark(oklch(0.955 0.035 92), oklch(0.2 0.025 165));
+	--ink: light-dark(oklch(0.2 0.02 60), oklch(0.95 0.01 100));
+	--muted: light-dark(oklch(0.38 0.03 70), oklch(0.8 0.02 130));
+	--rule: light-dark(oklch(0.7 0.06 85), oklch(0.42 0.03 165));
+	--pen: light-dark(oklch(0.36 0.17 262), oklch(0.88 0.11 95));
+	--stamp: light-dark(oklch(0.47 0.19 27), oklch(0.82 0.1 25));
+
+	--font: 'Archivo Variable', system-ui, sans-serif;
+	--text-small: 0.875rem;
+	--text-body: 1.0625rem;
+	--text-lead: 1.25rem;
+	--text-heading: 1.5rem;
+	--text-card: 1.75rem;
+	--text-poster: clamp(2.5rem, 8.5vw, 6.5rem);
+
+	--page: 72rem;
+	--measure: 40rem;
+	--gutter: clamp(1rem, 4vw, 2.5rem);
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-5: 1.5rem;
+	--space-6: 2rem;
+	--space-8: 3rem;
+	--space-9: 4.5rem;
+
+	--radius: 4px;
+	--control: 2.75rem;
+	--press-in: 90ms;
+	--press-out: 200ms;
+	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html {
-	@apply antialiased;
+@layer base {
+	body {
+		background: var(--paper);
+		color: var(--ink);
+		font: 400 var(--text-body) / 1.5 var(--font);
+		font-variant-numeric: tabular-nums;
+		text-wrap: pretty;
+		-webkit-text-size-adjust: 100%;
+	}
+
+	:focus-visible {
+		outline: 3px solid var(--pen);
+		outline-offset: 2px;
+	}
+
+	::selection {
+		background: var(--ink);
+		color: var(--paper);
+	}
+
+	h2 {
+		font-size: var(--text-heading);
+		font-weight: 750;
+		font-stretch: 75%;
+		line-height: 1.15;
+	}
+
+	h3 {
+		font-size: var(--text-lead);
+		font-weight: 700;
+	}
+
+	strong {
+		font-weight: 700;
+	}
 }
 
-body {
-	@apply bg-white text-gray-900;
-	font-family: var(--font-sans);
+/* Blocks in a page never touch: every block is spaced from the one before it. */
+.page {
+	max-width: var(--page);
+	margin-inline: auto;
+	padding: var(--space-6) var(--gutter) 0;
 }
 
-/* Markdown prose defaults */
+.page > * + * {
+	margin-top: var(--space-5);
+}
+
+.page > h2 {
+	margin-top: var(--space-8);
+}
+
+.poster {
+	font-size: var(--text-poster);
+	font-weight: 800;
+	font-stretch: 62%;
+	line-height: 0.92;
+	letter-spacing: -0.01em;
+	text-wrap: balance;
+	overflow-wrap: anywhere;
+}
+
+.lead {
+	max-width: var(--measure);
+	font-size: var(--text-lead);
+	line-height: 1.4;
+}
+
+.muted {
+	color: var(--muted);
+}
+
+.small {
+	font-size: var(--text-small);
+}
+
+.link,
+.prose a {
+	color: var(--pen);
+	text-decoration: underline;
+	text-decoration-thickness: 0.08em;
+	text-underline-offset: 0.18em;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.link:hover,
+	.prose a:hover {
+		text-decoration-thickness: 0.16em;
+	}
+}
+
 .prose {
-	@apply max-w-none;
+	max-width: var(--measure);
+}
+
+.prose > * + * {
+	margin-top: var(--space-4);
+}
+
+.prose > h2 {
+	margin-top: var(--space-8);
+}
+
+.prose > h3 {
+	margin-top: var(--space-5);
+}
+
+.prose > h3 + * {
+	margin-top: var(--space-1);
+}
+
+.prose ul,
+.prose ol {
+	padding-left: 1.25em;
+}
+
+.prose ul {
+	list-style: disc;
+}
+
+.prose ol {
+	list-style: decimal;
+}
+
+.prose li + li {
+	margin-top: var(--space-2);
+}
+
+.actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-3) var(--space-5);
+}
+
+/* The one filled action on a page. It sits proud of the paper and drops when pressed. */
+.button {
+	display: inline-flex;
+	min-height: var(--control);
+	padding: 0 var(--space-5);
+	align-items: center;
+	border-radius: var(--radius);
+	background: var(--ink);
+	box-shadow:
+		inset 0 -2px 0 oklch(0 0 0 / 0.35),
+		0 2px 0 oklch(0 0 0 / 0.25);
+	color: var(--paper);
+	font-weight: 700;
+	cursor: pointer;
+	touch-action: manipulation;
+	transition:
+		scale var(--press-out) var(--ease-out),
+		translate var(--press-out) var(--ease-out);
+}
+
+.button:active {
+	box-shadow: none;
+	scale: 0.97;
+	translate: 0 2px;
+	transition-duration: var(--press-in);
+}
+
+.facts {
+	max-width: var(--measure);
+	border-top: 2px solid var(--ink);
+}
+
+.facts > div {
+	display: grid;
+	padding: var(--space-2) 0;
+	gap: 0 var(--space-4);
+	border-bottom: 1px solid var(--rule);
+	grid-template-columns: 9rem 1fr;
+}
+
+.facts dt {
+	color: var(--muted);
+}
+
+.facts dd {
+	overflow-wrap: anywhere;
+}
+
+.form {
+	display: grid;
+	max-width: var(--measure);
+	gap: var(--space-5);
+}
+
+.field {
+	display: grid;
+	gap: var(--space-1);
+}
+
+.field label {
+	font-weight: 700;
+}
+
+.field small {
+	color: var(--muted);
+	font-size: var(--text-small);
+}
+
+.field input,
+.field select,
+.field textarea {
+	width: 100%;
+	min-height: 3rem;
+	padding: var(--space-2) var(--space-3);
+	border: 2px solid var(--ink);
+	border-radius: var(--radius);
+	background: var(--field);
+	color: var(--ink);
+	font: inherit;
+}
+
+.field textarea {
+	min-height: 9rem;
+	resize: vertical;
+}
+
+.field ::placeholder {
+	color: var(--muted);
+	opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0s !important;
+		animation-duration: 0s !important;
+		scroll-behavior: auto !important;
+	}
+
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation: none !important;
+	}
+}
+
+::view-transition-group(*) {
+	animation-duration: 240ms;
+	animation-timing-function: var(--ease-out);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 160ms;
 }

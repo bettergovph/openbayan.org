@@ -1,0 +1,78 @@
+name: Submissions
+
+# Turns a "Share a project" or "Post an update" issue form into a pull request
+# that adds one file under content/. Maintainers review and merge it.
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions: {}
+
+concurrency:
+  group: submission-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  open-pull-request:
+    name: Open a pull request for the submission
+    if: github.event.issue.state == 'open'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write # push the submission branch
+      pull-requests: write # open the pull request
+      issues: write # reply on the issue
+    env:
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+      BRANCH: submission/issue-${{ github.event.issue.number }}
+    steps:
+      - name: Checkout the default branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          # The last step pushes the submission branch with this token.
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version-file: '.nvmrc'
+
+      # The issue text is untrusted. It reaches the script through the
+      # environment only, and the script has no dependencies to install.
+      - name: Read the submission
+        id: submission
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+        run: node --experimental-strip-types scripts/submission.ts
+
+      - name: Tell the submitter what to fix
+        if: steps.submission.outputs.result == 'invalid'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MESSAGE: ${{ steps.submission.outputs.message }}
+        run: gh issue comment "$ISSUE_NUMBER" --edit-last --create-if-none --body "$MESSAGE"
+
+      - name: Open or refresh the pull request
+        if: steps.submission.outputs.result == 'ready'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FILE_PATH: ${{ steps.submission.outputs.path }}
+          TITLE: ${{ steps.submission.outputs.title }}
+          MESSAGE: ${{ steps.submission.outputs.message }}
+          BASE: ${{ github.event.repository.default_branch }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch --create "$BRANCH"
+          git add -- "$FILE_PATH"
+          git commit --message "content: add submission from issue #$ISSUE_NUMBER"
+          git push --force origin "$BRANCH"
+
+          if [ "$(gh pr list --head "$BRANCH" --state open --json number --jq length)" = "0" ]; then
+            gh pr create --base "$BASE" --head "$BRANCH" --title "$TITLE" --body "$MESSAGE"
+          fi
+          url="$(gh pr list --head "$BRANCH" --state open --json url --jq '.[0].url')"
+          gh issue comment "$ISSUE_NUMBER" --edit-last --create-if-none \
+            --body "Thanks. A pull request with your submission is open at $url. A maintainer reviews it, and this issue closes when it merges. Edit this issue to change the submission."

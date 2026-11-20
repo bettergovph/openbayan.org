@@ -3,6 +3,7 @@ title: Philippines Tax Directory
 summary: Community-maintained guide that centralizes Philippine tax information, resources, and references for developers and citizens.
 status: alpha
 repoUrl: https://github.com/bettergovph/ph-tax-directory
+needs: ['developers', 'designers', 'researchers']
 website: https://taxdirectory.bettergov.ph
 license: CC0-1.0 (public domain dedication)
 maintainers: ['anth.dev']

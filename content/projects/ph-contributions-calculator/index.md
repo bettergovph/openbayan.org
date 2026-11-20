@@ -1,6 +1,6 @@
 ---
-title: "Philippine Contributions Calculator"
-summary: "A free website, REST API, and TypeScript library for Philippine statutory contributions, starting with SSS and growing to cover PhilHealth and Pag-IBIG."
+title: 'Philippine Contributions Calculator'
+summary: 'A free website, REST API, and TypeScript library for Philippine statutory contributions, starting with SSS and growing to cover PhilHealth and Pag-IBIG.'
 description: |
   The Philippine Contributions Calculator is building a single, open and verifiable home for the mandatory contributions every Filipino worker and employer deals with: SSS, PhilHealth, and Pag-IBIG (HDMF). Today it fully covers SSS. PhilHealth and Pag-IBIG are next, and will be added with the same approach.
 
@@ -9,35 +9,35 @@ description: |
   SSS is live now. It includes all five official table groups for 2023 and 2025 (10 schedules, 572 rows), seven membership types, and a reverse lookup that traces a payslip deduction back to the implied monthly salary credit. The next phase adds PhilHealth premium contributions with the employer/employee split, and Pag-IBIG Fund monthly savings for employees, employers, and individually paying members, each verified against official sources the way the SSS tables are. The longer-term goal is one consistent data model and API across all three agencies, so a developer or employer can calculate a worker's full statutory deductions in one place.
 
 # Project URLs
-repository: "https://github.com/jpabellon/ph-contributions-calculator"
-website: "https://jpabellon.github.io/ph-contributions-calculator/"
-demo: "https://jpabellon.github.io/ph-contributions-calculator/webapicalculator/"
+repoUrl: 'https://github.com/jpabellon/ph-contributions-calculator'
+website: 'https://jpabellon.github.io/ph-contributions-calculator/'
+demo: 'https://jpabellon.github.io/ph-contributions-calculator/webapicalculator/'
 
 # Project Details
-license: "MIT"
-status: "beta"
-dateAdded: "2026-10-20"
+license: 'MIT'
+status: 'beta'
+dateAdded: '2026-10-20'
 
 # People
 maintainers:
-  - "jpabellon"
+  - 'jpabellon'
 
 # Categorization
 sectors:
-  - "Government"
-  - "Finance"
-  - "Technology"
+  - 'Government'
+  - 'Finance'
+  - 'Technology'
 
 tags:
-  - "web-app"
-  - "api"
-  - "open-data"
-  - "civic-tech"
-  - "sss"
-  - "philhealth"
-  - "pag-ibig"
-  - "payroll"
-  - "typescript"
+  - 'web-app'
+  - 'api'
+  - 'open-data'
+  - 'civic-tech'
+  - 'sss'
+  - 'philhealth'
+  - 'pag-ibig'
+  - 'payroll'
+  - 'typescript'
 
 # Social Impact
 impact: |

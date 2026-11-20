@@ -1,12 +1,17 @@
 <script lang="ts">
-	import PageHeader from '$lib/components/PageHeader.svelte';
 	import Meta from '$lib/components/Meta.svelte';
-	import { contactEmail, githubRepoUrl, githubNewPRUrl } from '$lib/config/site';
+	import { contactEmail, githubNewIssueUrl, githubRepoUrl } from '$lib/config/site';
+	import { LIMITS, SECTORS } from '$lib/content/schema';
+	import { PROJECT_FIELDS, UPDATE_FIELDS } from '$lib/submissions/issue-form';
+
+	let { data } = $props();
+
+	const stages = ['Planning', 'Alpha', 'Beta', 'Stable'];
 </script>
 
 <Meta
-	title="Submit a Project"
-	description="Share your open source project with the Filipino community. Help build a better Philippines through technology by contributing to our directory of civic tech projects."
+	title="Add a project"
+	description="Add a civic tech project to OpenBayan or post an update on one. A maintainer reviews every submission."
 	keywords={[
 		'submit project',
 		'contribute project',
@@ -16,175 +21,167 @@
 	]}
 />
 
-<PageHeader
-	title="Submit a Project"
-	summary="Share your open source project with the Filipino community and help build a better Philippines through technology."
-	color="red"
-/>
+<div class="page">
+	<h1 class="poster">Add a project</h1>
+	<p class="lead">
+		Fill in the form. It opens a GitHub issue with your answers, and a pull request is made from it.
+		A maintainer reads the pull request before the project is listed.
+	</p>
+	<p class="muted note">
+		You need a GitHub account. Without one, email the same details to
+		<a class="link" href="mailto:{contactEmail}">{contactEmail}</a>.
+	</p>
 
-<div class="mx-auto max-w-screen-xl px-4 py-16">
-	<div class="max-w-4xl">
-		<p class="mb-8 text-xl leading-relaxed text-gray-700">
-			We welcome open source projects that serve the Filipino community. Whether you're building
-			tools for government transparency, digital services, or engagement, we'd love to feature your
-			work.
-		</p>
+	<form class="form" method="get" action={githubNewIssueUrl}>
+		<input type="hidden" name="template" value="submit-project.yml" />
 
-		<h2 class="mb-6 text-2xl font-bold text-gray-900">Project Requirements</h2>
-
-		<div class="mb-12 grid gap-8 md:grid-cols-2">
-			<div>
-				<h3 class="mb-3 text-lg font-semibold text-gray-900">Open Source</h3>
-				<p class="leading-relaxed text-gray-700">
-					Your project must be open source with a clear license (MIT, Apache, GPL, etc.).
-				</p>
-			</div>
-
-			<div>
-				<h3 class="mb-3 text-lg font-semibold text-gray-900">Community Impact</h3>
-				<p class="leading-relaxed text-gray-700">
-					Projects should aim to improve public services, transparency, or digital infrastructure in
-					the Philippines.
-				</p>
-			</div>
-
-			<div>
-				<h3 class="mb-3 text-lg font-semibold text-gray-900">Active Development</h3>
-				<p class="leading-relaxed text-gray-700">
-					Projects should be actively maintained or have clear documentation for contributors.
-				</p>
-			</div>
-
-			<div>
-				<h3 class="mb-3 text-lg font-semibold text-gray-900">Clear Documentation</h3>
-				<p class="leading-relaxed text-gray-700">
-					Include a README with setup instructions, usage examples, and contribution guidelines.
-				</p>
-			</div>
+		<div class="field">
+			<label for="name">{PROJECT_FIELDS.name}</label>
+			<input id="name" name="name" required maxlength={LIMITS.title} autocomplete="off" />
 		</div>
-
-		<h2 class="mb-6 text-2xl font-bold text-gray-900">How to Submit</h2>
-
-		<div class="mb-8 grid gap-6 sm:grid-cols-2">
-			<a
-				class="block bg-blue-600 p-6 text-white transition-colors hover:bg-blue-700"
-				href={githubNewPRUrl}
-				rel="noopener"
-				target="_blank"
-			>
-				<h3 class="mb-2 text-lg font-semibold">Submit via Pull Request</h3>
-				<p class="text-sm text-blue-100">
-					Fork our repository, add your project to the content/projects directory, and submit a pull
-					request. This is the preferred method for technical contributors.
-				</p>
-			</a>
-
-			<a
-				class="block bg-green-600 p-6 text-white transition-colors hover:bg-green-700"
-				href={`mailto:${contactEmail}`}
-			>
-				<h3 class="mb-2 text-lg font-semibold">Email Submission</h3>
-				<p class="text-sm text-green-100">
-					Send us an email with your project details. We'll review and add it to the directory if it
-					meets our criteria. Perfect for non-technical contributors.
-				</p>
-			</a>
+		<div class="field">
+			<label for="summary">{PROJECT_FIELDS.summary}</label>
+			<small id="summary-hint">Up to {LIMITS.summary} characters. Shown in the project list.</small>
+			<input
+				id="summary"
+				name="summary"
+				required
+				maxlength={LIMITS.summary}
+				aria-describedby="summary-hint"
+			/>
 		</div>
-
-		<div class="mb-8 border border-blue-200 bg-blue-50 p-6">
-			<h3 class="mb-3 text-lg font-semibold text-blue-900">Pull Request Workflow (Recommended)</h3>
-			<ol class="list-inside list-decimal space-y-2 text-blue-800">
-				<li>
-					Fork the <a
-						href={githubRepoUrl}
-						class="underline hover:text-blue-600"
-						target="_blank"
-						rel="noopener">OpenBayan repository</a
-					>
-				</li>
-				<li>
-					Create a new folder: <code class="rounded bg-blue-100 px-1"
-						>content/projects/your-project-name/</code
-					>
-				</li>
-				<li>
-					Add an <code class="rounded bg-blue-100 px-1">index.md</code> file with your project details
-				</li>
-				<li>Follow the metadata format from existing projects</li>
-				<li>Submit a pull request with a clear description</li>
-			</ol>
+		<div class="field">
+			<label for="description">{PROJECT_FIELDS.description}</label>
+			<small id="description-hint">Plain text, up to {LIMITS.description} characters.</small>
+			<textarea
+				id="description"
+				name="description"
+				required
+				maxlength={LIMITS.description}
+				aria-describedby="description-hint"
+			></textarea>
 		</div>
-
-		<div class="mb-8 border border-gray-200 bg-gray-50 p-6">
-			<h3 class="mb-3 text-lg font-semibold text-gray-900">Required Project Information</h3>
-			<ul class="list-inside list-disc space-y-2 text-gray-700">
-				<li>Project name and brief description</li>
-				<li>Repository URL (GitHub, GitLab, etc.)</li>
-				<li>Live demo or website URL (if available)</li>
-				<li>License information</li>
-				<li>Primary maintainer or organization</li>
-				<li>Tags and sectors that apply to your project</li>
-				<li>Brief explanation of community impact</li>
-				<li>Project status (development, stable, maintenance)</li>
-			</ul>
-		</div>
-
-		<div class="border border-green-200 bg-green-50 p-6">
-			<h3 class="mb-3 text-lg font-semibold text-green-900">Project Template</h3>
-			<p class="mb-4 text-green-800">
-				Copy this template and fill in your project details. Save it as <code
-					class="rounded bg-green-100 px-1">content/projects/your-project-name/index.md</code
-				>
-			</p>
-			<div class="overflow-x-auto">
-				<pre
-					class="overflow-x-auto rounded border border-green-200 bg-white p-4 text-sm text-gray-800"><code
-						>{`---
-title: "Your Project Name"
-summary: "Brief one-sentence description of what your project does"
-description: |
-  Detailed description of your project. Explain what problem it solves,
-  how it helps the Filipino community, and what makes it special.
-
-  You can use multiple paragraphs here to provide comprehensive information
-  about your project's goals, features, and impact.
-
-# Project URLs
-repository: "https://github.com/yourusername/your-project"
-website: "https://your-project.com"  # Optional
-demo: "https://demo.your-project.com"  # Optional
-
-# Project Details
-license: "MIT"  # e.g., MIT, Apache-2.0, GPL-3.0
-status: "stable"  # development, stable, maintenance
-dateAdded: "${new Date().toISOString().split('T')[0]}"
-
-# People
-maintainers:
-  - "Your Name"
-  - "Co-maintainer Name"  # Optional
-
-# Categorization
-sectors:
-  - "Government"  # Choose from: Government, Healthcare, Education, Transportation, etc.
-  - "Technology"
-
-tags:
-  - "web-app"
-  - "transparency"
-  - "open-data"
-  - "civic-tech"
-
-# Social Impact
-impact: |
-  Explain how your project benefits the Filipino community.
-  What specific problems does it solve? Who are the beneficiaries?
-  Include any metrics or success stories if available.
----
-
-more information about the project`}</code
-					></pre>
+		<div class="pair">
+			<div class="field">
+				<label for="status">{PROJECT_FIELDS.status}</label>
+				<select id="status" name="status" required>
+					{#each stages as stage (stage)}
+						<option>{stage}</option>
+					{/each}
+				</select>
+			</div>
+			<div class="field">
+				<label for="sector">{PROJECT_FIELDS.sector}</label>
+				<select id="sector" name="sector" required>
+					{#each SECTORS as sector (sector)}
+						<option>{sector}</option>
+					{/each}
+				</select>
 			</div>
 		</div>
-	</div>
+		<div class="field">
+			<label for="website">{PROJECT_FIELDS.website}</label>
+			<small id="website-hint">Optional. Where people can see or use it.</small>
+			<input
+				id="website"
+				name="website"
+				type="url"
+				inputmode="url"
+				autocomplete="url"
+				placeholder="https://"
+				aria-describedby="website-hint"
+			/>
+		</div>
+		<div class="field">
+			<label for="repository">{PROJECT_FIELDS.repository}</label>
+			<small id="repository-hint">Optional. Leave empty if there is no public code.</small>
+			<input
+				id="repository"
+				name="repository"
+				type="url"
+				inputmode="url"
+				placeholder="https://github.com/"
+				aria-describedby="repository-hint"
+			/>
+		</div>
+		<div class="pair">
+			<div class="field">
+				<label for="license">{PROJECT_FIELDS.license}</label>
+				<input id="license" name="license" maxlength={LIMITS.license} placeholder="MIT" />
+			</div>
+			<div class="field">
+				<label for="tags">{PROJECT_FIELDS.tags}</label>
+				<input id="tags" name="tags" placeholder="open-data, mapping" />
+			</div>
+		</div>
+		<div class="field">
+			<label for="maintainers">{PROJECT_FIELDS.maintainers}</label>
+			<small id="maintainers-hint">Optional. Names separated by commas.</small>
+			<input id="maintainers" name="maintainers" aria-describedby="maintainers-hint" />
+		</div>
+
+		<div class="actions">
+			<button class="button" type="submit">Continue on GitHub</button>
+		</div>
+	</form>
+
+	<h2 id="update">Post an update</h2>
+	<p class="prose">Updates show on the project page and on the home page.</p>
+
+	<form class="form" method="get" action={githubNewIssueUrl}>
+		<input type="hidden" name="template" value="post-update.yml" />
+
+		<div class="field">
+			<label for="update-project">{UPDATE_FIELDS.project}</label>
+			<select id="update-project" name="project" required>
+				{#each data.projects as project (project.slug)}
+					<option value={project.slug}>{project.title}</option>
+				{/each}
+			</select>
+		</div>
+		<div class="field">
+			<label for="update-title">{UPDATE_FIELDS.title}</label>
+			<input id="update-title" name="title" required maxlength={LIMITS.updateTitle} />
+		</div>
+		<div class="field">
+			<label for="update-body">{UPDATE_FIELDS.body}</label>
+			<small id="update-body-hint">Plain text, up to {LIMITS.updateBody} characters.</small>
+			<textarea
+				id="update-body"
+				name="body"
+				required
+				maxlength={LIMITS.updateBody}
+				aria-describedby="update-body-hint"
+			></textarea>
+		</div>
+
+		<div class="actions">
+			<button class="button" type="submit">Continue on GitHub</button>
+		</div>
+	</form>
+
+	<h2>The volunteer stamp</h2>
+	<p class="prose">
+		A project carries the stamp when its owner is a current BetterGov volunteer. Maintainers confirm
+		this by hand and list the GitHub username in
+		<a href="{githubRepoUrl}/blob/master/content/verified-members.json" rel="noopener"
+			>content/verified-members.json</a
+		>.
+	</p>
 </div>
+
+<style>
+	.pair {
+		display: grid;
+		gap: var(--space-5);
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+	}
+
+	.note {
+		max-width: var(--measure);
+	}
+
+	.form {
+		margin-top: var(--space-6);
+	}
+</style>

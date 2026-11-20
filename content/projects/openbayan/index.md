@@ -3,6 +3,7 @@ title: OpenBayan
 summary: A showcase of open-source stuff for the Philippines.
 status: beta
 repoUrl: https://github.com/bettergovph/openbayan.org
+needs: ['developers', 'designers', 'researchers']
 website: https://openbayan.org
 license: MIT
 maintainers: ['contact@openbayan.org']

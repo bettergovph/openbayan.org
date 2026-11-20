@@ -16,7 +16,7 @@ concurrency:
 jobs:
   verify:
     name: Lint, type check, test, build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # Playwright 1.55 cannot install Chromium on the newer image ubuntu-latest points to.
     timeout-minutes: 10
 
     steps:

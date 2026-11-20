@@ -122,11 +122,16 @@
 		margin-top: var(--space-4);
 	}
 
-	select {
+	/* Svelte 5.39 leaves the scoping class off these selects, so they are matched through their parent. */
+	.filter :global(select) {
 		min-height: var(--control);
-		padding: 0 var(--space-3);
+		padding: 0 2.25rem 0 var(--space-3);
 		border: 1px solid var(--rule-strong);
-		background: var(--field);
+		/* The browser's own arrow sits flush against the text, so the arrow is drawn here instead. */
+		appearance: none;
+		background: var(--field)
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%230c1b33' stroke-width='1.5'%3E%3Cpath d='m2.5 4.5 3.5 3.5 3.5-3.5'/%3E%3C/svg%3E")
+			no-repeat right 0.75rem center / 0.75rem;
 		color: var(--ink);
 		font: inherit;
 		font-weight: 500;

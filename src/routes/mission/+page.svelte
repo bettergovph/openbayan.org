@@ -8,13 +8,17 @@
 	description="OpenBayan is a public list of open source projects for the Philippines, run by volunteers from BetterGov.ph."
 />
 
-<div class="page">
-	<h1 class="poster">About OpenBayan</h1>
-	<p class="lead">
-		OpenBayan is a public list of open source projects for the Philippines, such as flood maps, tax
-		calculators and government data APIs.
-	</p>
+<div class="hero">
+	<div class="hero-inner">
+		<h1 class="poster">About OpenBayan</h1>
+		<p class="lead">
+			OpenBayan is a public list of open source projects for the Philippines, such as flood maps,
+			tax calculators and government data APIs.
+		</p>
+	</div>
+</div>
 
+<div class="page">
 	<div class="prose">
 		<h2>What the list is for</h2>
 		<p>

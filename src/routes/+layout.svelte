@@ -1,5 +1,7 @@
 <script lang="ts">
-	import '@fontsource-variable/archivo/wdth.css';
+	import '@fontsource-variable/figtree';
+	import '@fontsource-variable/inter';
+	import '@fontsource-variable/jetbrains-mono';
 	import '../app.css';
 	import { onNavigate } from '$app/navigation';
 	import favicon from '$lib/assets/favicon.ico';
@@ -44,7 +46,7 @@
 		padding: var(--space-3) var(--space-4);
 		background: var(--paper);
 		color: var(--ink);
-		font-weight: 700;
+		font-weight: 600;
 		translate: 0 -200%;
 	}
 

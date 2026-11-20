@@ -16,18 +16,21 @@
 <ol class="list">
 	{#each projects as project (project.slug)}
 		<li>
-			<h2>
+			<p class="tags">
+				<span class="label sector">{project.sectors[0]}</span>
+				<span class="label">{project.status}</span>
+			</p>
+			<h3>
 				<a href="/projects/{project.slug}" style:view-transition-name="p-{project.slug}">
 					{project.title}
 				</a>
 				{#if project.verified}<Verified />{/if}
-			</h2>
-			<p class="summary">{project.summary}</p>
-			<p class="muted small">
+			</h3>
+			<p class="summary small muted">{project.summary}</p>
+			<p class="small muted">
 				{#if project.owner}
 					By <a class="link" href="/people/{project.owner}">{project.owner}</a>.
 				{/if}
-				<span class="stage">{project.status}</span>, {project.sectors[0]}.
 				{#if project.needs?.length}
 					Asking for {project.needs.join(', ')}.
 				{/if}
@@ -43,47 +46,60 @@
 <style>
 	.list {
 		display: grid;
-		gap: var(--space-4);
-		grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+		gap: var(--space-5);
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr));
 	}
 
-	/* A slip of lighter paper on the sheet. The whole slip opens the project. */
+	/* The whole card opens the project. */
 	li {
 		position: relative;
 		display: flex;
-		padding: var(--space-4);
+		padding: var(--space-5);
 		flex-direction: column;
 		gap: var(--space-3);
 		border: 1px solid var(--rule);
-		border-radius: var(--radius);
-		background: var(--field);
+		background: var(--paper);
 	}
 
 	.blank {
-		border: 2px dashed var(--pen);
-		background: none;
+		justify-content: center;
+		border-style: dashed;
+		border-color: var(--rule-strong);
+		background: var(--paper-2);
 	}
 
-	li :global(h2) {
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-2) var(--space-3);
+		font-size: 0.625rem;
+	}
+
+	.sector {
+		padding: 3px 8px;
+		background: var(--pen);
+		color: #ffffff;
+	}
+
+	li :global(h3) {
 		font-size: var(--text-card);
-		font-weight: 800;
-		font-stretch: 62%;
-		line-height: 1;
+		font-weight: 700;
+		line-height: 1.25;
 		overflow-wrap: anywhere;
 	}
 
-	li :global(h2 a::after) {
+	li :global(h3 a::after) {
 		position: absolute;
-		border-radius: var(--radius);
 		content: '';
 		inset: 0;
 	}
 
-	li :global(h2 a:focus-visible) {
+	li :global(h3 a:focus-visible) {
 		outline: none;
 	}
 
-	li :global(h2 a:focus-visible::after) {
+	li :global(h3 a:focus-visible::after) {
 		outline: 3px solid var(--pen);
 		outline-offset: 2px;
 	}
@@ -104,13 +120,9 @@
 		position: relative;
 	}
 
-	.stage {
-		text-transform: capitalize;
-	}
-
 	@media (hover: hover) and (pointer: fine) {
 		li:hover {
-			border-color: var(--ink);
+			border-color: var(--pen);
 		}
 	}
 </style>

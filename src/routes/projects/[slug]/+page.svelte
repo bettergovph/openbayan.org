@@ -21,28 +21,32 @@
 	ogType="article"
 />
 
+<div class="hero">
+	<div class="hero-inner">
+		<p><a class="link" href="/">All projects</a></p>
+		<h1 class="poster" style:view-transition-name="p-{project.slug}">
+			{project.title}
+			{#if project.verified}<Verified />{/if}
+		</h1>
+		<p class="lead">{project.summary}</p>
+
+		{#if project.website || project.repoUrl || project.demo}
+			<p class="actions">
+				{#if project.website}
+					<a class="button" href={project.website} rel="noopener">Visit website</a>
+				{/if}
+				{#if project.repoUrl}
+					<a class="link" href={project.repoUrl} rel="noopener">Source code</a>
+				{/if}
+				{#if project.demo && project.demo !== project.website}
+					<a class="link" href={project.demo} rel="noopener">Demo</a>
+				{/if}
+			</p>
+		{/if}
+	</div>
+</div>
+
 <div class="page">
-	<p><a class="link" href="/">All projects</a></p>
-	<h1 class="poster" style:view-transition-name="p-{project.slug}">
-		{project.title}
-		{#if project.verified}<Verified />{/if}
-	</h1>
-	<p class="lead">{project.summary}</p>
-
-	{#if project.website || project.repoUrl || project.demo}
-		<p class="actions">
-			{#if project.website}
-				<a class="button" href={project.website} rel="noopener">Visit website</a>
-			{/if}
-			{#if project.repoUrl}
-				<a class="link" href={project.repoUrl} rel="noopener">Source code</a>
-			{/if}
-			{#if project.demo && project.demo !== project.website}
-				<a class="link" href={project.demo} rel="noopener">Demo</a>
-			{/if}
-		</p>
-	{/if}
-
 	<dl class="facts">
 		{#if project.owner}
 			<div>
@@ -125,10 +129,6 @@
 </div>
 
 <style>
-	h1 {
-		margin-top: var(--space-3);
-	}
-
 	.stage {
 		text-transform: capitalize;
 	}

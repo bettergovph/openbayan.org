@@ -28,7 +28,7 @@
 <style>
 	.updates {
 		max-width: var(--measure);
-		border-top: 2px solid var(--ink);
+		border-top: 1px solid var(--ink);
 	}
 
 	li {

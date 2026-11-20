@@ -4,12 +4,17 @@
 	const links = [
 		{ href: '/', label: 'Projects' },
 		{ href: '/submit', label: 'Add a project' },
-		{ href: '/mission', label: 'About' }
+		{ href: '/mission', label: 'About' },
+		{ href: '/email', label: 'Email activation' }
 	];
 </script>
 
 <header class="header">
-	<a href="/" class="brand">OpenBayan</a>
+	<div class="top">
+		<a href="/" class="brand">OpenBayan</a>
+		<p class="label tagline">Open source projects<br />for the Philippines</p>
+		<a class="button label" href="/submit">Add a project</a>
+	</div>
 	<nav aria-label="Primary navigation">
 		{#each links as link (link.href)}
 			<a href={link.href} aria-current={page.url.pathname === link.href ? 'page' : undefined}>
@@ -21,49 +26,74 @@
 
 <style>
 	.header {
+		border-bottom: 2px solid var(--ink);
+		background: var(--paper);
+	}
+
+	.top,
+	nav {
 		display: flex;
 		max-width: var(--page);
 		margin-inline: auto;
-		padding: var(--space-2) var(--gutter);
+		padding-inline: var(--gutter);
 		flex-wrap: wrap;
 		align-items: center;
-		justify-content: space-between;
-		gap: 0 var(--space-6);
 	}
 
-	a {
-		display: flex;
-		min-height: var(--control);
-		align-items: center;
+	.top {
+		padding-block: var(--space-5);
+		gap: var(--space-3) var(--space-5);
 	}
 
 	.brand {
-		font-size: var(--text-heading);
-		font-weight: 800;
-		font-stretch: 62%;
+		color: var(--pen);
+		font: 800 1.75rem / 1 var(--font-display);
+		letter-spacing: -0.02em;
 	}
 
-	nav {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0 var(--space-5);
+	.tagline {
+		padding-left: var(--space-5);
+		border-left: 1px solid var(--rule);
+		font-size: 0.625rem;
+		font-weight: 400;
+		letter-spacing: 0.16em;
+	}
+
+	.button {
+		margin-left: auto;
+		font: 500 0.875rem / 1 var(--font);
+		letter-spacing: 0.08em;
 	}
 
 	nav a {
-		text-decoration: underline;
-		text-decoration-color: var(--rule);
-		text-decoration-thickness: 0.08em;
-		text-underline-offset: 0.3em;
+		padding: var(--space-3) 1.25rem;
+		color: var(--muted);
+		font: 600 1rem / 1.5 var(--font-display);
 	}
 
 	nav a[aria-current='page'] {
-		text-decoration-color: currentColor;
-		text-decoration-thickness: 0.16em;
+		background: var(--navy-tint);
+		color: var(--pen);
 	}
 
 	@media (hover: hover) and (pointer: fine) {
 		nav a:hover {
-			text-decoration-color: currentColor;
+			color: var(--pen);
+		}
+	}
+
+	@media (max-width: 40rem) {
+		.tagline,
+		.button {
+			display: none;
+		}
+
+		nav a {
+			padding-inline: var(--space-3);
+		}
+
+		nav {
+			padding-inline: calc(var(--gutter) - var(--space-3));
 		}
 	}
 </style>

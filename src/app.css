@@ -1,33 +1,40 @@
 @import 'tailwindcss';
 
 /*
- * BetterGov's blue on a pale blue page. The page title is set at poster size
- * in condensed Archivo, projects are white cards and links are service blue.
- * With a dark system theme the page turns navy and links turn BetterGov's
- * focus yellow.
+ * The same design as bettergov.ph: Figtree headings, Inter text, JetBrains
+ * Mono labels, square corners, a blue band under the header for each page
+ * title, white cards with a hairline border and a navy footer.
  */
 :root {
-	color-scheme: light dark;
+	color-scheme: light;
 
-	--paper: light-dark(#f4f7fc, oklch(0.23 0.07 262));
-	--field: light-dark(#ffffff, oklch(0.18 0.06 262));
-	--ink: light-dark(#0a0a0a, oklch(0.96 0.01 262));
-	--muted: light-dark(oklch(0.42 0.03 262), oklch(0.82 0.03 262));
-	--rule: light-dark(#d1d8e6, oklch(0.4 0.07 262));
-	--service: #0038a8;
-	--pen: light-dark(#0038a8, #ffcf4a);
+	--paper: #ffffff;
+	--paper-2: #f4f7fc;
+	--field: #ffffff;
+	--ink: #0c1b33;
+	--muted: #2b3a55;
+	--rule: #dbe3ef;
+	--rule-strong: #9fb2cc;
+	--pen: #0b4fd9;
+	--service: #0a44bd;
+	--navy-ink: #08286e;
+	--navy-tint: #e8efff;
+	--on-navy: #c9dcff;
 
-	--font: 'Archivo Variable', system-ui, sans-serif;
-	--text-small: 0.875rem;
-	--text-body: 1.0625rem;
-	--text-lead: 1.25rem;
+	--font: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--font-display: 'Figtree Variable', ui-sans-serif, sans-serif;
+	--font-mono: 'JetBrains Mono Variable', 'SF Mono', Menlo, monospace;
+	--text-label: 0.6875rem;
+	--text-small: 0.8125rem;
+	--text-body: 1rem;
+	--text-lead: 1.125rem;
+	--text-card: 1.25rem;
 	--text-heading: 1.5rem;
-	--text-card: 1.75rem;
-	--text-poster: clamp(2.5rem, 8.5vw, 6.5rem);
+	--text-poster: clamp(1.75rem, 4.4vw, 3.5rem);
 
-	--page: 72rem;
+	--page: 94rem;
 	--measure: 40rem;
-	--gutter: clamp(1rem, 4vw, 2.5rem);
+	--gutter: clamp(1rem, 2.5vw, 2rem);
 	--space-1: 0.25rem;
 	--space-2: 0.5rem;
 	--space-3: 0.75rem;
@@ -35,13 +42,10 @@
 	--space-5: 1.5rem;
 	--space-6: 2rem;
 	--space-8: 3rem;
-	--space-9: 4.5rem;
+	--space-9: 4rem;
 
-	--radius: 4px;
+	--radius: 0;
 	--control: 2.75rem;
-	--press-in: 90ms;
-	--press-out: 200ms;
-	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
@@ -59,33 +63,65 @@
 		outline-offset: 2px;
 	}
 
-	::selection {
-		background: var(--ink);
-		color: var(--paper);
-	}
-
 	h2 {
+		font-family: var(--font-display);
 		font-size: var(--text-heading);
-		font-weight: 750;
-		font-stretch: 75%;
-		line-height: 1.15;
+		font-weight: 600;
+		line-height: 1.25;
+		letter-spacing: -0.01em;
 	}
 
 	h3 {
+		font-family: var(--font-display);
 		font-size: var(--text-lead);
-		font-weight: 700;
+		font-weight: 600;
 	}
 
 	strong {
-		font-weight: 700;
+		font-weight: 600;
 	}
+}
+
+/* The blue band under the header that holds a page's title. */
+.hero {
+	background: var(--service);
+	color: #ffffff;
+}
+
+.hero-inner {
+	max-width: var(--page);
+	margin-inline: auto;
+	padding: var(--space-9) var(--gutter);
+}
+
+.hero-inner > * + * {
+	margin-top: var(--space-4);
+}
+
+.hero .lead,
+.hero .muted {
+	color: var(--on-navy);
+}
+
+.hero .link {
+	color: #ffffff;
+}
+
+.hero :focus-visible {
+	outline-color: #ffffff;
+}
+
+.hero .button {
+	border-color: #ffffff;
+	background: #ffffff;
+	color: var(--navy-ink);
 }
 
 /* Blocks in a page never touch: every block is spaced from the one before it. */
 .page {
 	max-width: var(--page);
 	margin-inline: auto;
-	padding: var(--space-6) var(--gutter) 0;
+	padding: var(--space-8) var(--gutter) 0;
 }
 
 .page > * + * {
@@ -97,11 +133,11 @@
 }
 
 .poster {
+	font-family: var(--font-display);
 	font-size: var(--text-poster);
-	font-weight: 800;
-	font-stretch: 62%;
-	line-height: 1.02;
-	letter-spacing: -0.01em;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: -0.02em;
 	text-wrap: balance;
 	overflow-wrap: anywhere;
 }
@@ -109,7 +145,7 @@
 .lead {
 	max-width: var(--measure);
 	font-size: var(--text-lead);
-	line-height: 1.4;
+	line-height: 1.55;
 }
 
 .muted {
@@ -120,19 +156,18 @@
 	font-size: var(--text-small);
 }
 
+/* The small uppercase label bettergov.ph sets in mono. */
+.label {
+	font: 500 var(--text-label) / 1.5 var(--font-mono);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+
 .link,
 .prose a {
 	color: var(--pen);
 	text-decoration: underline;
-	text-decoration-thickness: 0.08em;
 	text-underline-offset: 0.18em;
-}
-
-@media (hover: hover) and (pointer: fine) {
-	.link:hover,
-	.prose a:hover {
-		text-decoration-thickness: 0.16em;
-	}
 }
 
 .prose {
@@ -179,41 +214,40 @@
 	gap: var(--space-3) var(--space-5);
 }
 
-/* The one filled action on a page. It sits proud of the paper and drops when pressed. */
 .button {
 	display: inline-flex;
 	min-height: var(--control);
-	padding: 0 var(--space-5);
+	padding: 0 1.25rem;
 	align-items: center;
-	border-radius: var(--radius);
-	background: var(--ink);
-	box-shadow:
-		inset 0 -2px 0 oklch(0 0 0 / 0.35),
-		0 2px 0 oklch(0 0 0 / 0.25);
-	color: var(--paper);
-	font-weight: 700;
+	border: 1px solid var(--pen);
+	background: var(--pen);
+	color: #ffffff;
+	font-size: 0.875rem;
+	font-weight: 500;
 	cursor: pointer;
 	touch-action: manipulation;
-	transition:
-		scale var(--press-out) var(--ease-out),
-		translate var(--press-out) var(--ease-out);
 }
 
-.button:active {
-	box-shadow: none;
-	scale: 0.97;
-	translate: 0 2px;
-	transition-duration: var(--press-in);
+@media (hover: hover) and (pointer: fine) {
+	.button:hover {
+		border-color: var(--service);
+		background: var(--service);
+	}
+
+	.hero .button:hover {
+		border-color: var(--navy-tint);
+		background: var(--navy-tint);
+	}
 }
 
 .facts {
 	max-width: var(--measure);
-	border-top: 2px solid var(--ink);
+	border-top: 1px solid var(--ink);
 }
 
 .facts > div {
 	display: grid;
-	padding: var(--space-2) 0;
+	padding: var(--space-3) 0;
 	gap: 0 var(--space-4);
 	border-bottom: 1px solid var(--rule);
 	grid-template-columns: 9rem 1fr;
@@ -239,7 +273,7 @@
 }
 
 .field label {
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .field small {
@@ -251,10 +285,9 @@
 .field select,
 .field textarea {
 	width: 100%;
-	min-height: 3rem;
+	min-height: var(--control);
 	padding: var(--space-2) var(--space-3);
-	border: 2px solid var(--ink);
-	border-radius: var(--radius);
+	border: 1px solid var(--rule-strong);
 	background: var(--field);
 	color: var(--ink);
 	font: inherit;
@@ -287,8 +320,7 @@
 }
 
 ::view-transition-group(*) {
-	animation-duration: 240ms;
-	animation-timing-function: var(--ease-out);
+	animation-duration: 200ms;
 }
 
 ::view-transition-old(root),

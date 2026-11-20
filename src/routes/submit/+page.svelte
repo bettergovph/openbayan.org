@@ -14,17 +14,21 @@
 	description="Add an open source project to OpenBayan or post an update on one. A volunteer reads every submission."
 />
 
-<div class="page">
-	<h1 class="poster">Add a project</h1>
-	<p class="lead">
-		The form opens a GitHub issue with your answers. A pull request is made from the issue, and a
-		volunteer reads it before the project is listed.
-	</p>
-	<p class="muted note">
-		You need a GitHub account. Without one, email the same details to
-		<a class="link" href="mailto:{contactEmail}">{contactEmail}</a>.
-	</p>
+<div class="hero">
+	<div class="hero-inner">
+		<h1 class="poster">Add a project</h1>
+		<p class="lead">
+			The form opens a GitHub issue with your answers. A pull request is made from the issue, and a
+			volunteer reads it before the project is listed.
+		</p>
+		<p class="muted note">
+			You need a GitHub account. Without one, email the same details to
+			<a class="link" href="mailto:{contactEmail}">{contactEmail}</a>.
+		</p>
+	</div>
+</div>
 
+<div class="page">
 	<form class="form" method="get" action={githubNewIssueUrl}>
 		<input type="hidden" name="template" value="submit-project.yml" />
 
@@ -172,9 +176,5 @@
 
 	.note {
 		max-width: var(--measure);
-	}
-
-	.form {
-		margin-top: var(--space-6);
 	}
 </style>

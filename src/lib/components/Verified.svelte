@@ -14,21 +14,23 @@
 	.verified {
 		display: inline-block;
 		color: var(--pen);
-		vertical-align: -0.08em;
+		vertical-align: -0.1em;
 	}
 
 	svg {
-		width: 0.72em;
-		height: 0.72em;
+		width: 0.9em;
+		height: 0.9em;
 	}
 
-	/* Beside a poster-size title the badge stays small. */
-	:global(.poster) .verified {
-		vertical-align: 0.28em;
+	/* On the blue band the badge is white with a blue check. */
+	:global(.hero) .verified {
+		--field: var(--service);
+		color: #ffffff;
+		vertical-align: 0.12em;
 	}
 
-	:global(.poster) svg {
-		width: 0.32em;
-		height: 0.32em;
+	:global(.hero) svg {
+		width: 0.5em;
+		height: 0.5em;
 	}
 </style>

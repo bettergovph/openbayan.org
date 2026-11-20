@@ -49,20 +49,29 @@
 	description="A public list of open source projects for the Philippines. Anyone can add a project, and a BetterGov volunteer reads each one before it is listed."
 />
 
-<div class="page">
-	<h1 class="poster">Open source projects for the Philippines</h1>
-	<p class="lead">
-		Anyone can add a project. A BetterGov volunteer reads each one before it is listed.
-	</p>
-	<p class="muted count">
-		{plural(data.projects.length, 'project')} from
-		{plural(data.ownerCount, 'person or group', 'people and groups')}.
-		{#if data.projects.length > 0}
-			The newest was added on {formatDate(data.projects[0].dateAdded)}.
-		{/if}
-	</p>
+<div class="hero">
+	<div class="hero-inner">
+		<h1 class="poster">Open source projects for the Philippines</h1>
+		<p class="lead">
+			Anyone can add a project. A BetterGov volunteer reads each one before it is listed.
+		</p>
+		<p class="muted count">
+			{plural(data.projects.length, 'project')} from
+			{plural(data.ownerCount, 'person or group', 'people and groups')}.
+			{#if data.projects.length > 0}
+				The newest was added on {formatDate(data.projects[0].dateAdded)}.
+			{/if}
+		</p>
+	</div>
+</div>
 
-	<p class="lead filter">
+<div class="page">
+	<div class="head">
+		<h2>Projects</h2>
+		<p class="small muted" aria-live="polite">{plural(results.length, 'project')} shown</p>
+	</div>
+
+	<p class="filter">
 		<label>
 			Show
 			<select bind:value={need} onchange={writeAddress} style="field-sizing: content">
@@ -84,14 +93,14 @@
 	</p>
 
 	{#if results.length === 0}
-		<p aria-live="polite">
+		<p>
 			No project matches.
 			<button type="button" class="link" onclick={clearFilters}>Show all projects</button>
 		</p>
 	{/if}
 
 	<ProjectList projects={results}>
-		<h2><a class="add" href="/submit">Add your project</a></h2>
+		<h3><a class="add" href="/submit">Add your project</a></h3>
 	</ProjectList>
 
 	{#if data.updates.length > 0}
@@ -101,23 +110,26 @@
 </div>
 
 <style>
-	.count {
-		margin-top: var(--space-2);
+	.head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: var(--space-2) var(--space-5);
 	}
 
 	.filter {
-		margin-top: var(--space-6);
+		margin-top: var(--space-4);
 	}
 
 	select {
 		min-height: var(--control);
-		padding: 0 var(--space-2);
-		border-bottom: 2px solid var(--ink);
-		border-radius: var(--radius) var(--radius) 0 0;
+		padding: 0 var(--space-3);
+		border: 1px solid var(--rule-strong);
 		background: var(--field);
 		color: var(--ink);
 		font: inherit;
-		font-weight: 700;
+		font-weight: 500;
 		cursor: pointer;
 	}
 

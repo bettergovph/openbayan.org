@@ -10,8 +10,10 @@
 
 <Meta {title} description={summary} noindex />
 
-<div class="page">
-	<h1 class="poster">{title}</h1>
-	<p class="lead">{summary}</p>
-	<p class="actions"><a class="button" href="/">See all projects</a></p>
+<div class="hero">
+	<div class="hero-inner">
+		<h1 class="poster">{title}</h1>
+		<p class="lead">{summary}</p>
+		<p class="actions"><a class="button" href="/">See all projects</a></p>
+	</div>
 </div>

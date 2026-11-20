@@ -30,15 +30,19 @@
 
 <Meta title="Email activation" description={summary} />
 
-<div class="page">
-	<h1 class="poster">Email activation</h1>
-	<p class="lead">
-		{summary} Write to {activationEmail}. Requests are usually answered within 2 to 3 days.
-	</p>
-	<p class="actions">
-		<a class="button" href="mailto:{activationEmail}">Send a request</a>
-	</p>
+<div class="hero">
+	<div class="hero-inner">
+		<h1 class="poster">Email activation</h1>
+		<p class="lead">
+			{summary} Write to {activationEmail}. Requests are usually answered within 2 to 3 days.
+		</p>
+		<p class="actions">
+			<a class="button" href="mailto:{activationEmail}">Send a request</a>
+		</p>
+	</div>
+</div>
 
+<div class="page">
 	<div class="prose">
 		<h2>What to send</h2>
 		<ul>

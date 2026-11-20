@@ -119,22 +119,32 @@
 	}
 
 	.filter {
+		display: flex;
 		margin-top: var(--space-4);
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-2) var(--space-3);
+	}
+
+	label {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-3);
 	}
 
 	/* Svelte 5.39 leaves the scoping class off these selects, so they are matched through their parent. */
 	.filter :global(select) {
 		min-height: var(--control);
-		padding: 0 2.25rem 0 var(--space-3);
-		border: 1px solid var(--rule-strong);
+		padding: 0 1.5rem 0 0;
 		/* The browser's own arrow sits flush against the text, so the arrow is drawn here instead. */
+		-webkit-appearance: none;
 		appearance: none;
-		background: var(--field)
+		background: transparent
 			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%230c1b33' stroke-width='1.5'%3E%3Cpath d='m2.5 4.5 3.5 3.5 3.5-3.5'/%3E%3C/svg%3E")
-			no-repeat right 0.75rem center / 0.75rem;
+			no-repeat right center / 0.75rem;
 		color: var(--ink);
 		font: inherit;
-		font-weight: 500;
+		font-weight: 600;
 		cursor: pointer;
 	}
 

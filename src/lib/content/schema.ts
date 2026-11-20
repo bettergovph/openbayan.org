@@ -3,6 +3,7 @@ export type Status = (typeof STATUSES)[number];
 
 export const SECTORS = [
 	'Government',
+	'Local Government',
 	'Transparency',
 	'Civic Tech',
 	'Technology',

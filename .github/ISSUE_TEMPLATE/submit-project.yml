@@ -43,6 +43,7 @@ body:
       label: Main sector
       options:
         - Government
+        - Local Government
         - Transparency
         - Civic Tech
         - Technology

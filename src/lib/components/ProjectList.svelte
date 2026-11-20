@@ -120,6 +120,23 @@
 		position: relative;
 	}
 
+	/* Shorter cards on a phone, so more of the list fits on a screen. */
+	@media (max-width: 40rem) {
+		.list {
+			gap: var(--space-3);
+		}
+
+		li {
+			padding: var(--space-4);
+			gap: var(--space-2);
+		}
+
+		.summary {
+			-webkit-line-clamp: 2;
+			line-clamp: 2;
+		}
+	}
+
 	@media (hover: hover) and (pointer: fine) {
 		li:hover {
 			border-color: var(--pen);

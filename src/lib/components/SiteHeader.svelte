@@ -88,18 +88,38 @@
 		}
 	}
 
+	/* On a phone the links stay on one row that scrolls sideways, and the header gets shorter. */
 	@media (max-width: 40rem) {
 		.tagline,
 		.button {
 			display: none;
 		}
 
-		nav a {
-			padding-inline: var(--space-3);
+		.top {
+			padding-block: var(--space-3);
+		}
+
+		.brand {
+			gap: var(--space-2);
+			font-size: 1.375rem;
+		}
+
+		.brand img {
+			width: 2rem;
+			height: 2rem;
 		}
 
 		nav {
 			padding-inline: calc(var(--gutter) - var(--space-3));
+			flex-wrap: nowrap;
+			overflow-x: auto;
+			scrollbar-width: none;
+		}
+
+		nav a {
+			padding-inline: var(--space-3);
+			font-size: 0.9375rem;
+			white-space: nowrap;
 		}
 	}
 </style>

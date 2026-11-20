@@ -1,23 +1,17 @@
 <script lang="ts">
-	import { officialSitesUrl, githubRepoUrl, githubIssuesUrl } from '$lib/config/site';
+	import { githubRepoUrl, githubIssuesUrl } from '$lib/config/site';
 </script>
 
 <footer class="footer">
 	<p>
-		OpenBayan is run by volunteers from
-		<a class="link" href="https://bettergov.ph" rel="noopener">BetterGov.ph</a>. It is not a
-		government website. For government services, go to the
-		<a class="link" href={officialSitesUrl} rel="noopener">official government portal</a>.
-	</p>
-	<p>
-		No ads and no tracking. Every project here is a file in a
-		<a class="link" href={githubRepoUrl} rel="noopener">public repository</a>, added by a pull
-		request that a maintainer approved.
+		Run by volunteers from
+		<a class="link" href="https://bettergov.ph" rel="noopener">BetterGov.ph</a>. No ads and no
+		tracking. The site and its project list are in a
+		<a class="link" href={githubRepoUrl} rel="noopener">public repository</a>.
 		<a class="link" href={githubIssuesUrl} rel="noopener">Report a problem</a>.
 	</p>
 	<nav aria-label="More pages">
-		<a class="link" href="/mission">Mission</a>
-		<a class="link" href="/vision">Vision</a>
+		<a class="link" href="/mission">About</a>
 		<a class="link" href="/email">Email activation</a>
 		<a class="link" href="/submit">Add a project</a>
 	</nav>

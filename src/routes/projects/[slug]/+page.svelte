@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Meta from '$lib/components/Meta.svelte';
 	import UpdateList from '$lib/components/UpdateList.svelte';
-	import Stamp from '$lib/components/Stamp.svelte';
+	import Verified from '$lib/components/Verified.svelte';
 	import { githubNewIssueUrl } from '$lib/config/site';
 	import { formatDate } from '$lib/format';
 
@@ -23,8 +23,10 @@
 
 <div class="page">
 	<p><a class="link" href="/">All projects</a></p>
-	<h1 class="poster" style:view-transition-name="p-{project.slug}">{project.title}</h1>
-	{#if project.verified}<p><Stamp /></p>{/if}
+	<h1 class="poster" style:view-transition-name="p-{project.slug}">
+		{project.title}
+		{#if project.verified}<Verified />{/if}
+	</h1>
 	<p class="lead">{project.summary}</p>
 
 	{#if project.website || project.repoUrl || project.demo}

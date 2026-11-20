@@ -4,7 +4,7 @@
 	const links = [
 		{ href: '/', label: 'Projects' },
 		{ href: '/submit', label: 'Add a project' },
-		{ href: '/mission', label: 'Mission' }
+		{ href: '/mission', label: 'About' }
 	];
 </script>
 

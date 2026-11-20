@@ -33,7 +33,7 @@ Each project has one owner, a GitHub username. For a submission made through the
 
 ### Verified volunteers
 
-A project shows a verified mark when its owner is listed in `content/verified-members.json`. There is no volunteer portal to check against yet, so maintainers confirm membership by hand:
+A project shows a verified badge when its owner is listed in `content/verified-members.json`. There is no volunteer portal to check against yet, so maintainers confirm membership by hand:
 
 1. Confirm the person is a current BetterGov volunteer.
 2. Add their GitHub username to `content/verified-members.json` in a pull request.

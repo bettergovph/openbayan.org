@@ -2,17 +2,15 @@
 	import type { Snippet } from 'svelte';
 	import type { Project } from '$lib/content/projects';
 	import { formatDate } from '$lib/format';
-	import Stamp from './Stamp.svelte';
+	import Verified from './Verified.svelte';
 
 	type Props = {
 		projects: Project[];
-		/** Off on an owner's own page, where the stamp is already under their name. */
-		stamps?: boolean;
 		/** A last row in the same list, for the blank spot where the next project goes. */
 		children?: Snippet;
 	};
 
-	let { projects, stamps = true, children }: Props = $props();
+	let { projects, children }: Props = $props();
 </script>
 
 <ol class="list">
@@ -22,8 +20,8 @@
 				<a href="/projects/{project.slug}" style:view-transition-name="p-{project.slug}">
 					{project.title}
 				</a>
+				{#if project.verified}<Verified />{/if}
 			</h2>
-			{#if stamps && project.verified}<p><Stamp /></p>{/if}
 			<p class="summary">{project.summary}</p>
 			<p class="muted small">
 				{#if project.owner}

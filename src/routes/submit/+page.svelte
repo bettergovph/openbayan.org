@@ -11,21 +11,14 @@
 
 <Meta
 	title="Add a project"
-	description="Add a civic tech project to OpenBayan or post an update on one. A maintainer reviews every submission."
-	keywords={[
-		'submit project',
-		'contribute project',
-		'open source Philippines',
-		'civic tech contribution',
-		'share technology project'
-	]}
+	description="Add an open source project to OpenBayan or post an update on one. A volunteer reads every submission."
 />
 
 <div class="page">
 	<h1 class="poster">Add a project</h1>
 	<p class="lead">
-		Fill in the form. It opens a GitHub issue with your answers, and a pull request is made from it.
-		A maintainer reads the pull request before the project is listed.
+		The form opens a GitHub issue with your answers. A pull request is made from the issue, and a
+		volunteer reads it before the project is listed.
 	</p>
 	<p class="muted note">
 		You need a GitHub account. Without one, email the same details to
@@ -160,9 +153,9 @@
 		</div>
 	</form>
 
-	<h2>The volunteer stamp</h2>
+	<h2>Verified badge</h2>
 	<p class="prose">
-		A project carries the stamp when its owner is a current BetterGov volunteer. Maintainers confirm
+		A project shows the badge when its owner is a current BetterGov volunteer. Maintainers confirm
 		this by hand and list the GitHub username in
 		<a href="{githubRepoUrl}/blob/master/content/verified-members.json" rel="noopener"
 			>content/verified-members.json</a

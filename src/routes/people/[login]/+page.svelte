@@ -2,7 +2,7 @@
 	import Meta from '$lib/components/Meta.svelte';
 	import ProjectList from '$lib/components/ProjectList.svelte';
 	import UpdateList from '$lib/components/UpdateList.svelte';
-	import Stamp from '$lib/components/Stamp.svelte';
+	import Verified from '$lib/components/Verified.svelte';
 	import { plural } from '$lib/format';
 
 	let { data } = $props();
@@ -15,15 +15,17 @@
 
 <div class="page">
 	<p><a class="link" href="/">All projects</a></p>
-	<h1 class="poster">{data.login}</h1>
-	{#if data.verified}<p><Stamp /></p>{/if}
+	<h1 class="poster">
+		{data.login}
+		{#if data.verified}<Verified />{/if}
+	</h1>
 	<p class="muted">
 		{plural(data.projects.length, 'project')} on OpenBayan.
 		<a class="link" href="https://github.com/{data.login}" rel="noopener">GitHub profile</a>
 	</p>
 
 	{#if data.projects.length > 0}
-		<ProjectList projects={data.projects} stamps={false} />
+		<ProjectList projects={data.projects} />
 	{/if}
 
 	{#if data.updates.length > 0}

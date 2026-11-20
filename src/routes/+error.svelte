@@ -4,9 +4,7 @@
 
 	const title = $derived(page.status === 404 ? 'Page not found' : 'Something went wrong');
 	const summary = $derived(
-		page.status === 404
-			? "The page you're looking for doesn't exist or has been moved."
-			: "We're experiencing technical difficulties. Please try again later."
+		page.status === 404 ? 'This page does not exist.' : 'The page failed to load. Try again.'
 	);
 </script>
 

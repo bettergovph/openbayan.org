@@ -10,7 +10,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		// Nothing links to these two old addresses any more, so the crawler is told about their redirects.
-		prerender: { entries: ['*', '/search', '/directory'] },
+		prerender: { entries: ['*', '/search', '/directory', '/vision'] },
 		typescript: {
 			config: (config) => {
 				config.include.push('../scripts/**/*.ts');

@@ -150,7 +150,7 @@ function projectSubmission(
 		content: toFrontmatter(frontmatter),
 		pullRequestTitle: `content: add ${title}`,
 		reviewNotes: [
-			`\`owner\` is @${context.author}, the account that opened the issue. A verified mark shows only if that login is in \`content/verified-members.json\`.`
+			`\`owner\` is @${context.author}, the account that opened the issue. A verified badge shows only if that login is in \`content/verified-members.json\`.`
 		]
 	};
 }

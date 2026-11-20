@@ -1,8 +1,8 @@
 export const siteConfig = {
 	name: 'OpenBayan',
-	title: 'OpenBayan - Open Source Technology for the Philippines',
+	title: 'OpenBayan - Open source projects for the Philippines',
 	description:
-		'A community-led directory of open source projects that improve public services, transparency, and digital infrastructure across the Philippines.',
+		'A public list of open source projects for the Philippines, run by BetterGov volunteers.',
 	url: 'https://openbayan.org',
 	ogImage: 'https://openbayan.org/og-image.png',
 	twitterHandle: '@openbayan',

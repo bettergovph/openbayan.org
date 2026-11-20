@@ -45,16 +45,14 @@
 <svelte:window onpopstate={readAddress} />
 
 <Meta
-	title="Civic tech projects for the Philippines"
-	description="A public list of open source civic tech projects for the Philippines, added by the people who build them."
-	keywords={['open source Philippines', 'civic technology', 'open data', 'volunteer projects']}
+	title="Open source projects for the Philippines"
+	description="A public list of open source projects for the Philippines. Anyone can add a project, and a BetterGov volunteer reads each one before it is listed."
 />
 
 <div class="page">
-	<h1 class="poster">Civic tech for the Philippines, listed by the people who build it.</h1>
+	<h1 class="poster">Open source projects for the Philippines</h1>
 	<p class="lead">
-		OpenBayan is a public list of open source projects made for Filipinos. Anyone can add theirs and
-		say what help it needs.
+		Anyone can add a project. A BetterGov volunteer reads each one before it is listed.
 	</p>
 	<p class="muted count">
 		{plural(data.projects.length, 'project')} from
@@ -94,9 +92,6 @@
 
 	<ProjectList projects={results}>
 		<h2><a class="add" href="/submit">Add your project</a></h2>
-		<p class="muted small">
-			Fill in a form with a GitHub account. A maintainer reads it before it is listed.
-		</p>
 	</ProjectList>
 
 	{#if data.updates.length > 0}

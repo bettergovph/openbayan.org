@@ -1,63 +1,45 @@
 <script lang="ts">
 	import Meta from '$lib/components/Meta.svelte';
+	import { githubRepoUrl } from '$lib/config/site';
 </script>
 
 <Meta
-	title="Our Mission"
-	description="Our mission is to act as a consolidated hub for community-led initiatives and open source projects that aim to improve public services, transparency, and digital infrastructure across the Philippines."
-	keywords={[
-		'mission',
-		'community initiatives',
-		'public services',
-		'transparency',
-		'digital infrastructure Philippines'
-	]}
+	title="About"
+	description="OpenBayan is a public list of open source projects for the Philippines, run by volunteers from BetterGov.ph."
 />
 
 <div class="page">
-	<h1 class="poster">Our mission</h1>
+	<h1 class="poster">About OpenBayan</h1>
 	<p class="lead">
-		Making it easy to discover, support, and contribute to impactful technology projects for the
-		Philippines.
+		OpenBayan is a public list of open source projects for the Philippines, such as flood maps, tax
+		calculators and government data APIs.
 	</p>
 
 	<div class="prose">
-		<h2>What we do</h2>
+		<h2>What the list is for</h2>
 		<p>
-			We act as a consolidated hub for community‑led initiatives and open source projects that aim
-			to improve public services, transparency, and digital infrastructure across the Philippines.
+			People use it to find these projects, try them and help build them. Each project says who owns
+			it, what stage it is at and what help it is asking for.
 		</p>
-		<h3>Curate and showcase</h3>
+
+		<h2>Who runs it</h2>
 		<p>
-			We maintain a curated directory of open source projects that address real challenges in the
-			Philippines, making it easy for developers, organizations, and citizens to discover impactful
-			work.
+			Volunteers from <a href="https://bettergov.ph" rel="noopener">BetterGov.ph</a> run the site. It
+			is not part of any government agency.
 		</p>
-		<h3>Connect communities</h3>
+
+		<h2>How a project gets listed</h2>
 		<p>
-			We bridge the gap between developers, organizations, and government agencies to foster
-			collaboration and knowledge sharing across the technology ecosystem.
+			The person who builds a project fills in <a href="/submit">the form</a>. That opens a pull
+			request, and a volunteer reads it before merging. Every project is a file in the
+			<a href={githubRepoUrl} rel="noopener">public repository</a>, so each change has a history
+			anyone can read.
 		</p>
-		<h3>Support contributors</h3>
+
+		<h2>Verified badge</h2>
 		<p>
-			We provide resources, guidance, and platforms for developers and organizations to share their
-			work and find meaningful ways to contribute to technology.
-		</p>
-		<h3>Promote transparency</h3>
-		<p>
-			We advocate for open source approaches to government technology, promoting transparency,
-			accountability, and citizen participation in digital governance.
-		</p>
-		<h2>Our approach</h2>
-		<p>
-			OpenBayan operates as a community-driven initiative, independent of any single organization or
-			government entity. We believe that the best technology emerges from collaborative efforts
-			between diverse stakeholders.
-		</p>
-		<p>
-			By maintaining this directory and fostering connections within the community, we aim to
-			accelerate the development and adoption of technology solutions that truly serve the Filipino
-			people.
+			A project shows the badge when its owner is a current BetterGov volunteer. Volunteers are
+			confirmed by hand for now.
 		</p>
 	</div>
 </div>

@@ -11,8 +11,8 @@
 
 <style>
 	.notice {
-		background: var(--ink);
-		color: var(--paper);
+		background: var(--service);
+		color: #ffffff;
 		font-size: var(--text-small);
 	}
 

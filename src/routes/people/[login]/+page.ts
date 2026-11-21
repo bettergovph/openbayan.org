@@ -1,6 +1,6 @@
-import type { PageLoad } from './$types';
+import type { EntryGenerator, PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import { getAllUpdates, getProjectsByOwner } from '$lib/content/projects';
+import { getAllProjects, getAllUpdates, getProjectsByOwner } from '$lib/content/projects';
 
 export const load: PageLoad = ({ params }) => {
 	const projects = getProjectsByOwner(params.login);
@@ -16,4 +16,13 @@ export const load: PageLoad = ({ params }) => {
 		projects,
 		updates
 	};
+};
+
+/** Built for every owner and update author, whether or not a built page links to them. */
+export const entries: EntryGenerator = () => {
+	const logins = [
+		...getAllProjects().flatMap((project) => project.owner ?? []),
+		...getAllUpdates().map((update) => update.author)
+	];
+	return [...new Set(logins)].map((login) => ({ login }));
 };

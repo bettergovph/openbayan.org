@@ -44,3 +44,9 @@ jobs:
 
       - name: Run every check
         run: pnpm run verify
+
+      - name: Check that every project has a built page
+        run: |
+          for dir in content/projects/*/; do
+            test -f "build/projects/$(basename "$dir").html" || { echo "No page was built for $dir"; exit 1; }
+          done

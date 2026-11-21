@@ -1,7 +1,7 @@
 ---
 title: SALN Tracker PH
 summary: A web platform for tracking and displaying Statements of Assets, Liabilities, and Net Worth (SALN) of Philippine government officials to promote transparency and accountability.
-status: beta
+status: stable
 repoUrl: https://github.com/JHNLWHD/saln-tracker-ph
 website: https://saln.bettergov.ph
 license: MIT
